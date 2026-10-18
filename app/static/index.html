@@ -17,19 +17,6 @@
     .mono {
       font-family: 'JetBrains Mono', monospace;
     }
-    .diff-del {
-      background-color: rgba(239, 68, 68, 0.16);
-      color: #fca5a5;
-      border-left: 3px solid #ef4444;
-    }
-    .diff-add {
-      background-color: rgba(16, 185, 129, 0.16);
-      color: #6ee7b7;
-      border-left: 3px solid #10b981;
-    }
-    .diff-hdr {
-      color: #94a3b8;
-    }
     .badge-claim {
       display: inline-flex;
       align-items: center;
@@ -70,8 +57,8 @@
 </head>
 <body class="min-h-screen antialiased selection:bg-sky-500 selection:text-white">
 
-  <!-- Top Navigation Bar -->
-  <header class="sticky top-0 z-40 border-b border-slate-800/80 bg-[#0b0f17]/90 backdrop-blur-md">
+  <!-- Top Navigation & Unified Context Header -->
+  <header class="sticky top-0 z-40 border-b border-slate-800/80 bg-[#0b0f17]/95 backdrop-blur-md">
     <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
       <div class="flex items-center gap-3">
         <div class="flex h-8 w-8 items-center justify-center rounded bg-sky-500/10 border border-sky-500/40 mono text-xs font-bold text-sky-400">
@@ -86,121 +73,43 @@
             </span>
           </div>
           <p class="text-[11px] text-slate-400 hidden sm:block">
-            Zero-Trust Selective Transparency Engine | Google Cloud AI Builder Cup 2026 (Theme 5)
+            Theme 5: Future of Work &amp; Enterprise Productivity | Design Partner: nhaminhbach.com (32,600+ WAU)
           </p>
         </div>
       </div>
 
-      <nav class="hidden md:flex items-center gap-5 text-xs font-medium text-slate-300">
-        <a href="#problem" class="hover:text-white transition">01. Problem &amp; Impact</a>
-        <a href="#inspector" class="hover:text-white transition">02. Interactive Pipeline</a>
-        <a href="#benchmark" class="hover:text-white transition">03. 27-Asset Benchmark</a>
-        <a href="#downstream" class="hover:text-white transition">04. Gemini MCP &amp; Production</a>
-      </nav>
-
       <div class="flex items-center gap-2">
+        <button onclick="toggleMcpDrawer()"
+                class="rounded border border-sky-500/40 bg-sky-500/10 px-3 py-1.5 text-xs font-medium text-sky-300 hover:bg-sky-500/20 transition">
+          Gemini MCP Endpoint
+        </button>
         <a href="https://github.com/nhaminhbach/translucid" target="_blank" rel="noopener"
            class="rounded border border-slate-700 bg-slate-800/70 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-500 hover:text-white transition">
           GitHub Repo
         </a>
         <a href="https://nhaminhbach.com" target="_blank" rel="noopener"
            class="rounded bg-sky-500 px-3 py-1.5 text-xs font-semibold text-slate-950 hover:bg-sky-400 transition">
-          Customer #1: nhaminhbach.com
+          Customer #1
         </a>
       </div>
     </div>
   </header>
 
-  <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 space-y-12">
+  <main class="mx-auto max-w-7xl px-4 py-6 sm:px-6 space-y-6">
 
-    <!-- SECTION 01: THE WHISTLEBLOWER CATCH-22 & REAL PRODUCTION METRICS -->
-    <section id="problem" class="space-y-6">
-      <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-6 sm:p-8">
-        <div class="flex flex-wrap items-center gap-2 mb-3">
-          <span class="rounded bg-sky-500/15 border border-sky-500/30 px-2.5 py-0.5 mono text-xs font-medium text-sky-300">
-            THEME 5: FUTURE OF WORK &amp; ENTERPRISE PRODUCTIVITY
-          </span>
-          <span class="rounded bg-slate-800 px-2.5 py-0.5 mono text-xs text-slate-300">
-            B2B LegalOps &amp; Trust-and-Safety Compliance Automation
-          </span>
-        </div>
-
-        <h1 class="text-2xl sm:text-4xl font-bold tracking-tight text-white max-w-4xl leading-tight">
-          The Whistleblower Catch-22: Exposing Fraud Without Violating Strict JAPAC Privacy &amp; Defamation Statutes
-        </h1>
-
-        <p class="mt-3 max-w-3xl text-sm sm:text-base text-slate-300 leading-relaxed">
-          In developing JAPAC markets, citizens reporting rental scams, deposit theft, or consumer fraud are trapped between predatory operators and severe privacy/defamation laws
-          (<strong class="text-white">Vietnam Decree 13/2023/ND-CP, Decree 147/2024/ND-CP, Penal Code Art 156; Singapore PDPA &amp; POHA</strong>).
-          Like Google Street View blurring for civic dispute evidence, <strong class="text-sky-400">Translucid</strong> renders personal identity markers mathematically opaque (<code class="mono text-xs bg-slate-800 px-1.5 py-0.5 rounded">(0,0,0)</code> solid black pixels and statutory tokens) while letting structural evidence (utility tariffs, deposit deductions, room defects, commercial brands) pass through 100% legible.
-        </p>
-
-        <!-- Verified Customer #1 Telemetry Strip -->
-        <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-5">
-          <div class="rounded-lg border border-slate-800 bg-slate-950/70 p-4">
-            <div class="mono text-xs text-slate-400">CUSTOMER #1 PEAK WAU</div>
-            <div class="mt-1 mono text-2xl font-bold text-white">32,600+</div>
-            <div class="mt-1 text-[11px] text-slate-400">Active citizens on nhaminhbach.com</div>
-          </div>
-          <div class="rounded-lg border border-slate-800 bg-slate-950/70 p-4">
-            <div class="mono text-xs text-slate-400">VERIFIED SEARCHES</div>
-            <div class="mt-1 mono text-2xl font-bold text-white">123,655</div>
-            <div class="mt-1 text-[11px] text-slate-400">Pre-transaction safety checks</div>
-          </div>
-          <div class="rounded-lg border border-slate-800 bg-slate-950/70 p-4">
-            <div class="mono text-xs text-slate-400">SANITIZED REVIEWS</div>
-            <div class="mt-1 mono text-2xl font-bold text-sky-400">936</div>
-            <div class="mt-1 text-[11px] text-slate-400">Across 502 PostGIS buildings</div>
-          </div>
-          <div class="rounded-lg border border-slate-800 bg-slate-950/70 p-4">
-            <div class="mono text-xs text-slate-400">BENCHMARK ACCURACY</div>
-            <div class="mt-1 mono text-2xl font-bold text-emerald-400">96.3%</div>
-            <div class="mt-1 text-[11px] text-slate-400">26 / 27 canonical dispute assets</div>
-          </div>
-          <div class="rounded-lg border border-slate-800 bg-slate-950/70 p-4 col-span-2 sm:col-span-1">
-            <div class="mono text-xs text-slate-400">MODERATION SPEEDUP</div>
-            <div class="mt-1 mono text-2xl font-bold text-amber-400">4.5x</div>
-            <div class="mt-1 text-[11px] text-slate-400">20m manual -&gt; 3.76m automated</div>
-          </div>
-        </div>
-
-        <!-- 3 Technical Innovations Comparison Row -->
-        <div class="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
-          <div class="rounded-lg border border-slate-800/90 bg-slate-950/40 p-4">
-            <div class="mono text-xs font-semibold text-rose-400">WHY TRADITIONAL OCR / DLP FAILS</div>
-            <p class="mt-1.5 text-xs text-slate-300 leading-relaxed">
-              Context-blind regex and baseline Cloud DLP <strong class="text-white">over-redact critical evidence</strong> (masking <code class="mono">4k/kWh</code> tariffs, meter digits, or commercial appliance stickers like <code class="mono">ln7p_5.webp</code>) while <strong class="text-white">under-redacting</strong> Zalo/Messenger chat headers and avatars.
-            </p>
-          </div>
-          <div class="rounded-lg border border-slate-800/90 bg-slate-950/40 p-4">
-            <div class="mono text-xs font-semibold text-amber-400">OVERCOMING THE SELF-CORRECTION MIRAGE</div>
-            <p class="mt-1.5 text-xs text-slate-300 leading-relaxed">
-              Naive VLM self-critique loops collapse accuracy from 79.6% to 48.7% (CVPR 2026). Translucid uses <strong class="text-white">Additive Residual Detection (<code class="mono">B_final = B_1 U dB</code>)</strong>: Pass 1 burns solid-black masks; Pass 2 scans strictly for surviving leaks and unions coordinates additively.
-            </p>
-          </div>
-          <div class="rounded-lg border border-slate-800/90 bg-slate-950/40 p-4">
-            <div class="mono text-xs font-semibold text-sky-400">UNTRUSTED-WORKER SANDBOXING</div>
-            <p class="mt-1.5 text-xs text-slate-300 leading-relaxed">
-              Gate 1 pre-tokenizes phones/IDs (<code class="mono">&lt;PII_PHONE_01&gt;</code>) before LLM transit. The VLM is physically barred from editing pixels or text—emitting strictly integer <code class="mono">[ymin, xmin, ymax, xmax]</code> schemas while deterministic Python executes all mutations.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 02: INTERACTIVE 4-GATE PIPELINE INSPECTOR & LIVE GEMINI SANDBOX -->
+    <!-- INTERACTIVE PIPELINE WORKBENCH & LIVE GEMINI SANDBOX -->
     <section id="inspector" class="space-y-4">
       <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
           <div class="mono text-xs font-semibold uppercase tracking-wider text-sky-400">
-            02. Interactive Pipeline Workbench &amp; Live Gemini Sandbox
+            Interactive Pipeline Workbench &amp; Live Gemini Sandbox
           </div>
-          <h2 class="mt-1 text-xl sm:text-2xl font-bold text-white">
-            Inspect Pre-Loaded Real Dispute Cases (0ms) or Trigger Live Gemini 3.5 Flash Lite Redaction
-          </h2>
+          <h1 class="mt-1 text-xl sm:text-2xl font-bold text-white">
+            Selective Redaction Sandbox: Input Review, Pre-Inference Tokens &amp; Dual-Pass Visual Engine
+          </h1>
         </div>
 
-        <!-- Jurisdiction Policy Selector -->
+        <!-- Statutory Policy Selector -->
         <div class="flex items-center gap-2">
           <span class="mono text-xs text-slate-400">Statutory Policy:</span>
           <select id="policy-select" onchange="onPolicyChange()"
@@ -224,18 +133,45 @@
         <pre id="policy-yaml-content" class="mono text-xs text-slate-300 overflow-x-auto leading-relaxed"></pre>
       </div>
 
-      <!-- Curated Case Study Tabs -->
-      <div id="case-tabs" class="grid grid-cols-1 gap-2 sm:grid-cols-5"></div>
+      <!-- Collapsible Gemini App MCP Drawer -->
+      <div id="mcp-drawer" class="hidden rounded-lg border border-sky-500/30 bg-slate-950 p-4 space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="mono text-xs font-semibold text-sky-400">Google Gemini Connected App MCP Endpoint (Cloud Run Native)</span>
+            <span class="rounded bg-slate-800 px-2 py-0.5 mono text-[10px] text-slate-300">JSON-RPC 2.0</span>
+          </div>
+          <button onclick="toggleMcpDrawer()" class="mono text-xs text-slate-400 hover:text-white">[Close]</button>
+        </div>
+        <p class="text-xs text-slate-300">
+          Native Streamable HTTP JSON-RPC 2.0 server deployed directly on Google Cloud Run at <code class="mono text-sky-300">https://translucid-nmbreovs7a-as.a.run.app/mcp</code>. Exposes <code class="mono">check_address_safety</code> for direct Google Gemini integration.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          <select id="mcp-tool-select"
+                  class="rounded border border-slate-700 bg-slate-900 px-2.5 py-1.5 mono text-xs text-white sm:col-span-2">
+            <option value="cau_giay">check_address_safety(address="Ngõ 12 Cầu Giấy, Hà Nội")</option>
+            <option value="phu_do">check_address_safety(address="Phú Đô, Nam Từ Liêm, Hà Nội")</option>
+            <option value="quan_1">check_address_safety(address="353/2/7 Phạm Ngũ Lão, Quận 1, TP.HCM")</option>
+          </select>
+          <button onclick="runLiveMcpQuery()"
+                  class="rounded bg-sky-500 px-3 py-1.5 mono text-xs font-semibold text-slate-950 hover:bg-sky-400 transition">
+            Test MCP Query
+          </button>
+        </div>
+        <pre id="mcp-response-view" class="mono text-[11px] text-slate-300 bg-slate-900/90 border border-slate-800 rounded p-3 max-h-40 overflow-y-auto whitespace-pre-wrap leading-relaxed">Click "Test MCP Query" to test https://translucid-nmbreovs7a-as.a.run.app/mcp live...</pre>
+      </div>
+
+      <!-- Curated Case Study Tabs (Exactly 3 High-Contrast Use Cases) -->
+      <div id="case-tabs" class="grid grid-cols-1 gap-2 sm:grid-cols-3"></div>
 
       <!-- Main Split-Pane Inspector -->
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
 
-        <!-- LEFT COLUMN (5 cols): Text Sanitization, Token Vault & Unified Git Diff -->
+        <!-- LEFT COLUMN (5 cols): Input Review, Quarantined Tokens & Public Copy -->
         <div class="lg:col-span-5 flex flex-col gap-4 rounded-xl border border-slate-800 bg-slate-900/60 p-5">
           <div class="flex items-center justify-between">
             <div>
-              <span class="mono text-xs font-semibold text-sky-400">GATE 1 &amp; GATE 4: TEXT &amp; STATUTORY DIFF</span>
-              <h3 class="text-sm font-semibold text-white">Whistleblower Complaint Sanitizer</h3>
+              <span class="mono text-xs font-semibold text-sky-400">TEXT PIPELINE</span>
+              <h2 class="text-sm font-semibold text-white">Whistleblower Review Sanitizer</h2>
             </div>
             <button id="run-live-btn" onclick="executePipeline(true)"
                     class="rounded bg-sky-500 px-3 py-1.5 mono text-xs font-semibold text-slate-950 hover:bg-sky-400 transition">
@@ -243,49 +179,51 @@
             </button>
           </div>
 
-          <!-- Raw Whistleblower Input Textarea -->
+          <!-- Input Review (Editable) -->
           <div>
-            <label class="block mono text-[11px] text-slate-400 mb-1">
-              RAW WHISTLEBLOWER SUBMISSION (Editable — Try typing phone numbers or accusations):
-            </label>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block mono text-[11px] text-slate-400 font-semibold">
+                INPUT REVIEW (EDITABLE):
+              </label>
+              <span id="pipeline-latency-label" class="mono text-[11px] text-slate-400">0.0 ms</span>
+            </div>
             <textarea id="raw-text-input" rows="4" oninput="executePipeline(false)"
                       class="w-full rounded-lg border border-slate-700 bg-slate-950 p-3 text-xs text-slate-200 focus:border-sky-500 focus:outline-none leading-relaxed"></textarea>
           </div>
 
-          <!-- Gate 1 Pre-Inference Token Vault -->
+          <!-- Quarantined Tokens (Gate 1 Local Token Vault) -->
           <div class="rounded-lg border border-slate-800 bg-slate-950/90 p-3">
             <div class="flex items-center justify-between">
-              <span class="mono text-[11px] font-semibold text-amber-400">GATE 1: PRE-INFERENCE TOKEN VAULT (&lt;1ms Local Quarantine)</span>
+              <span class="mono text-[11px] font-semibold text-amber-400">QUARANTINED TOKENS (PRE-INFERENCE VAULT)</span>
               <span id="vault-count-badge" class="mono text-[11px] text-slate-400">0 tokens</span>
             </div>
             <p id="quarantined-text-view" class="mt-1.5 mono text-xs text-slate-300 break-words leading-relaxed"></p>
           </div>
 
-          <!-- Statutory Interactive Sanitized View (nhaminhbach.com style) -->
-          <div class="rounded-lg border border-slate-800 bg-slate-950/90 p-3">
-            <div class="flex items-center justify-between mb-1.5">
-              <span class="mono text-[11px] font-semibold text-emerald-400">PUBLIC DISPLAY COPY (InteractiveSanitizedContent)</span>
-              <div id="statutory-counts" class="flex gap-1.5 mono text-[10px]"></div>
+          <!-- Public Copy (Sanitized Statutory Badges) -->
+          <div class="rounded-lg border border-slate-800 bg-slate-950/90 p-3 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="mono text-[11px] font-semibold text-emerald-400">PUBLIC COPY (STATUTORY PROJECTION)</span>
+                <div id="statutory-counts" class="flex gap-1.5 mono text-[10px]"></div>
+              </div>
+              <div id="rendered-sanitized-view" class="text-xs text-slate-200 leading-relaxed"></div>
             </div>
-            <div id="rendered-sanitized-view" class="text-xs text-slate-200 leading-relaxed"></div>
-          </div>
-
-          <!-- Unified Git Diff (review.diff) -->
-          <div class="rounded-lg border border-slate-800 bg-slate-950 p-3 flex-1">
-            <div class="flex items-center justify-between mb-1.5">
-              <span class="mono text-[11px] font-semibold text-slate-300">UNIFIED LEGAL GIT-DIFF (review.diff)</span>
-              <span id="pipeline-latency-label" class="mono text-[11px] text-slate-400">0.2ms</span>
+            <div class="pt-3 mt-3 border-t border-slate-800/60 flex items-center justify-between mono text-[11px] text-slate-400">
+              <span>Customer #1 Display Copy</span>
+              <a href="https://nhaminhbach.com" target="_blank" rel="noopener" class="text-sky-400 hover:underline">
+                nhaminhbach.com &rarr;
+              </a>
             </div>
-            <pre id="unified-diff-view" class="mono text-[11px] overflow-x-auto whitespace-pre-wrap leading-relaxed"></pre>
           </div>
         </div>
 
-        <!-- RIGHT COLUMN (7 cols): Visual Redaction Canvas & 4-Mode Bounding-Box Inspector -->
+        <!-- RIGHT COLUMN (7 cols): Visual Redaction Canvas & 3-Mode Streamlined Inspector -->
         <div class="lg:col-span-7 flex flex-col gap-4 rounded-xl border border-slate-800 bg-slate-900/60 p-5">
           <div class="flex flex-wrap items-center justify-between gap-2">
             <div>
-              <span class="mono text-xs font-semibold text-sky-400">GATE 2 &amp; GATE 3: DUAL-PASS ADDITIVE VISUAL REDACTION</span>
-              <h3 id="active-asset-title" class="text-sm font-semibold text-white">Asset: 4Z1w_0.webp</h3>
+              <span class="mono text-xs font-semibold text-sky-400">VISUAL REDACTION PIPELINE</span>
+              <h2 id="active-asset-title" class="text-sm font-semibold text-white">Asset: yMOa_0.webp</h2>
             </div>
 
             <!-- Custom Image Upload + Live VLM Trigger -->
@@ -301,34 +239,30 @@
             </div>
           </div>
 
-          <!-- 4-Mode Visual Comparison Bar -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 rounded-lg bg-slate-950 p-1.5 border border-slate-800">
+          <!-- 3-Mode Visual Comparison Bar -->
+          <div class="grid grid-cols-3 gap-1.5 rounded-lg bg-slate-950 p-1.5 border border-slate-800">
             <button id="mode-btn-raw" onclick="setVisualMode('raw')"
-                    class="rounded px-2.5 py-2 mono text-[11px] font-medium transition">
-              1. Synthetic-PII Input
-            </button>
-            <button id="mode-btn-naive" onclick="setVisualMode('naive')"
-                    class="rounded px-2.5 py-2 mono text-[11px] font-medium transition">
-              2. Naive OCR/DLP (Fails)
+                    class="rounded px-2.5 py-2 mono text-xs font-medium transition text-center">
+              1. Input
             </button>
             <button id="mode-btn-boxes" onclick="setVisualMode('boxes')"
-                    class="rounded px-2.5 py-2 mono text-[11px] font-medium transition">
-              3. Translucid Boxes (B1 U dB)
+                    class="rounded px-2.5 py-2 mono text-xs font-medium transition text-center">
+              2. Bounding Boxes
             </button>
             <button id="mode-btn-gt" onclick="setVisualMode('gt')"
-                    class="rounded px-2.5 py-2 mono text-[11px] font-medium transition">
-              4. Solid-Black WebP
+                    class="rounded px-2.5 py-2 mono text-xs font-medium transition text-center">
+              3. Redacted
             </button>
           </div>
 
-          <!-- Context Diagnostic Banner for Selected Mode -->
-          <div id="visual-diagnostic-banner" class="rounded-lg border border-slate-800 bg-slate-950/90 px-3.5 py-2.5 text-xs text-slate-300"></div>
+          <!-- Diagnostic Banner -->
+          <div id="visual-diagnostic-banner" class="rounded-lg border border-slate-800 bg-slate-950/90 px-3.5 py-2 text-xs text-slate-300"></div>
 
-          <!-- Interactive Image + SVG Bounding-Box Overlay Viewport -->
-          <div class="relative flex items-center justify-center rounded-lg border border-slate-800 bg-slate-950 overflow-hidden min-h-[380px] max-h-[540px]">
-            <div class="relative inline-block max-h-[520px]">
-              <img id="inspector-image" src="/assets/ground_truth/4Z1w_0.webp" alt="Dispute Evidence Asset"
-                   class="max-h-[500px] w-auto object-contain block select-none" onload="renderBoundingBoxes()" />
+          <!-- Interactive Image + SVG Overlay Viewport -->
+          <div class="relative flex items-center justify-center rounded-lg border border-slate-800 bg-slate-950 overflow-hidden min-h-[380px] max-h-[500px]">
+            <div class="relative inline-block max-h-[480px]">
+              <img id="inspector-image" src="/assets/ground_truth/yMOa_0.webp" alt="Dispute Evidence Asset"
+                   class="max-h-[460px] w-auto object-contain block select-none" onload="renderBoundingBoxes()" />
               <svg id="bbox-overlay-svg" class="pointer-events-none absolute inset-0 h-full w-full"></svg>
             </div>
           </div>
@@ -337,147 +271,23 @@
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
             <div class="rounded border border-slate-800 bg-slate-950/70 px-3 py-2">
               <div class="mono text-[10px] text-slate-400">PIPELINE DECISION</div>
-              <div id="meta-status" class="mono text-xs font-bold text-white mt-0.5">REDACTED</div>
+              <div id="meta-status" class="mono text-xs font-bold text-white mt-0.5">CLEAN</div>
             </div>
             <div class="rounded border border-slate-800 bg-slate-950/70 px-3 py-2">
-              <div class="mono text-[10px] text-slate-400">SOLID-BLACK BOXES</div>
-              <div id="meta-boxes" class="mono text-xs font-bold text-sky-400 mt-0.5">1 box (+5px pad)</div>
+              <div class="mono text-[10px] text-slate-400">MASKED BOXES</div>
+              <div id="meta-boxes" class="mono text-xs font-bold text-sky-400 mt-0.5">0 boxes</div>
             </div>
             <div class="rounded border border-slate-800 bg-slate-950/70 px-3 py-2">
-              <div class="mono text-[10px] text-slate-400">VLM EXECUTION LATENCY</div>
-              <div id="meta-latency" class="mono text-xs font-bold text-emerald-400 mt-0.5">10,557 ms</div>
+              <div class="mono text-[10px] text-slate-400">VLM LATENCY</div>
+              <div id="meta-latency" class="mono text-xs font-bold text-emerald-400 mt-0.5">4,666 ms</div>
             </div>
             <div class="rounded border border-slate-800 bg-slate-950/70 px-3 py-2">
-              <div class="mono text-[10px] text-slate-400">NEGATIVE INVARIANTS</div>
-              <div id="meta-invariants" class="mono text-xs font-bold text-amber-300 mt-0.5 truncate">Dialogue intact</div>
+              <div class="mono text-[10px] text-slate-400">NEGATIVE INVARIANT</div>
+              <div id="meta-invariants" class="mono text-xs font-bold text-amber-300 mt-0.5 truncate">Contract terms intact</div>
             </div>
           </div>
         </div>
 
-      </div>
-    </section>
-
-    <!-- SECTION 03: CANONICAL 27-ASSET BENCHMARK LAB (privacy_1015) -->
-    <section id="benchmark" class="space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-        <div>
-          <div class="mono text-xs font-semibold uppercase tracking-wider text-sky-400">
-            03. Canonical Benchmark Lab (data/benchmarks/privacy_1015)
-          </div>
-          <h2 class="mt-1 text-xl sm:text-2xl font-bold text-white">
-            27 Real-World Dispute Assets — 96.3% Accuracy (26/27) | Click Any Asset to Inspect Above
-          </h2>
-        </div>
-
-        <div class="flex items-center gap-1.5">
-          <button onclick="filterBenchmarkGrid('all')" id="filter-all"
-                  class="rounded border border-sky-500/50 bg-sky-500/15 px-3 py-1.5 mono text-xs text-sky-300">
-            All Assets (27)
-          </button>
-          <button onclick="filterBenchmarkGrid('redacted')" id="filter-redacted"
-                  class="rounded border border-slate-800 bg-slate-900 px-3 py-1.5 mono text-xs text-slate-300 hover:text-white">
-            Redacted PII (12)
-          </button>
-          <button onclick="filterBenchmarkGrid('clean')" id="filter-clean"
-                  class="rounded border border-slate-800 bg-slate-900 px-3 py-1.5 mono text-xs text-slate-300 hover:text-white">
-            Clean Fast-Path (15)
-          </button>
-        </div>
-      </div>
-
-      <div id="benchmark-grid" class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6"></div>
-    </section>
-
-    <!-- SECTION 04: DOWNSTREAM ECOSYSTEM — NHAMINHBACH.COM & GOOGLE GEMINI APP MCP -->
-    <section id="downstream" class="space-y-4">
-      <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-6 sm:p-8 space-y-6">
-        <div>
-          <div class="mono text-xs font-semibold uppercase tracking-wider text-sky-400">
-            04. End-to-End Production Syndication (Customer #1 + Google Gemini Connected App)
-          </div>
-          <h2 class="mt-1 text-xl sm:text-2xl font-bold text-white">
-            From Zero-Trust Redaction on Cloud Run to Live Consumer Discovery in Google Gemini via MCP
-          </h2>
-          <p class="mt-2 max-w-3xl text-xs sm:text-sm text-slate-300 leading-relaxed">
-            Translucid is not an isolated mockup: every review sanitized by this pipeline is published to <strong class="text-white">nhaminhbach.com</strong> (Customer #1) and syndicated headlessly via Streamable HTTP JSON-RPC 2.0 (<code class="mono text-sky-300">https://mcp.nhaminhbach.com/mcp</code>) directly into the <strong class="text-white">Google Gemini App (<code class="mono">@Nhaminhbach</code>)</strong>.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
-
-          <!-- Left Card: Customer #1 Web System of Record -->
-          <div class="rounded-lg border border-slate-800 bg-slate-950 p-5 flex flex-col justify-between space-y-4">
-            <div class="space-y-3">
-              <div class="flex items-center justify-between">
-                <span class="mono text-xs font-semibold text-emerald-400">STAGE A: PUBLIC SYSTEM OF RECORD (nhaminhbach.com)</span>
-                <span class="rounded bg-slate-800 px-2 py-0.5 mono text-[10px] text-slate-300">PostGIS + Cloudflare R2</span>
-              </div>
-              <h3 class="text-base font-bold text-white">Interactive Statutory Compliance Badges in Production</h3>
-              <p class="text-xs text-slate-300 leading-relaxed">
-                On <code class="mono">nhaminhbach.com</code>, <code class="mono">InteractiveSanitizedContent.tsx</code> transforms Translucid's <code class="mono">[[claim:...]]</code> and <code class="mono">[[pii:...]]</code> shortcodes into interactive legal compliance popovers citing <strong class="text-white">Decree 13/2023/ND-CP</strong> and <strong class="text-white">Civil Code Article 328</strong>, while serving the solid-black masked WebP proofs from Cloudflare R2.
-              </p>
-
-              <!-- Simulated Live Production Review Card -->
-              <div class="rounded border border-slate-800 bg-slate-900/90 p-4 space-y-2">
-                <div class="flex items-center justify-between mono text-[11px] text-slate-400">
-                  <span>BUILDING ID: HN100042 (Cau Giay, Ha Noi)</span>
-                  <span class="text-amber-400">Rating: 1/5 Stars</span>
-                </div>
-                <p class="text-xs text-slate-200 leading-relaxed">
-                  Chủ trọ tên <span class="badge-pii">PII Masked (Decree 13)</span> sđt <span class="badge-pii">091***5678</span> có dấu hiệu <span class="badge-claim">sai cam kết ban đầu (Civil Code Art 328)</span> và <span class="badge-claim">thu phí không rõ ràng</span> khi khách trả phòng. Điện 4.000đ/kWh.
-                </p>
-                <div class="pt-1 flex items-center justify-between text-[11px] text-slate-400">
-                  <span>Proof Media: 4Z1w_0.webp (Solid-Black Redacted)</span>
-                  <a href="https://nhaminhbach.com/?city=hn" target="_blank" rel="noopener" class="text-sky-400 hover:underline font-medium">
-                    Inspect Live on nhaminhbach.com -&gt;
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="flex flex-wrap gap-2 pt-2">
-              <a href="https://nhaminhbach.com/?city=hn" target="_blank" rel="noopener"
-                 class="rounded bg-sky-500 px-3.5 py-2 text-xs font-semibold text-slate-950 hover:bg-sky-400 transition">
-                Open Hanoi Map (nhaminhbach.com)
-              </a>
-              <a href="https://nhaminhbach.com/?city=sg" target="_blank" rel="noopener"
-                 class="rounded border border-slate-700 bg-slate-800 px-3.5 py-2 text-xs font-medium text-slate-200 hover:border-slate-500 transition">
-                Open Saigon Map (?city=sg)
-              </a>
-            </div>
-          </div>
-
-          <!-- Right Card: Live Google Gemini App MCP Tester -->
-          <div class="rounded-lg border border-slate-800 bg-slate-950 p-5 flex flex-col justify-between space-y-4">
-            <div class="space-y-3">
-              <div class="flex items-center justify-between">
-                <span class="mono text-xs font-semibold text-sky-400">STAGE B: GOOGLE GEMINI APP MCP (@Nhaminhbach)</span>
-                <span id="mcp-latency-badge" class="rounded bg-slate-800 px-2 py-0.5 mono text-[10px] text-slate-300">JSON-RPC 2.0</span>
-              </div>
-              <h3 class="text-base font-bold text-white">Test Live Headless MCP Server (mcp.nhaminhbach.com/mcp)</h3>
-              <p class="text-xs text-slate-300 leading-relaxed">
-                Users connect <code class="mono text-sky-300">https://mcp.nhaminhbach.com/mcp</code> inside Google Gemini to query verified listings and Translucid-sanitized building dispute histories. Click below to execute a live JSON-RPC <code class="mono">tools/call</code> query right now:
-              </p>
-
-              <!-- 1-Click MCP Tool Trigger Controls -->
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                <select id="mcp-tool-select"
-                        class="rounded border border-slate-700 bg-slate-900 px-2.5 py-1.5 mono text-xs text-white sm:col-span-2">
-                  <option value="search_chua_lang">search_rental_listings(area="Chùa Láng", city="HN")</option>
-                  <option value="inspect_cau_giay">inspect_building_reputation(area="Cầu Giấy", city="HN")</option>
-                  <option value="search_quan_1">search_rental_listings(area="Quận 1", city="SG")</option>
-                </select>
-                <button onclick="runLiveMcpQuery()"
-                        class="rounded bg-emerald-500 px-3 py-1.5 mono text-xs font-semibold text-slate-950 hover:bg-emerald-400 transition">
-                  Execute MCP Call
-                </button>
-              </div>
-
-              <pre id="mcp-response-view" class="mono text-[11px] text-slate-300 bg-slate-900/90 border border-slate-800 rounded p-3 max-h-48 overflow-y-auto whitespace-pre-wrap leading-relaxed">Click "Execute MCP Call" to query https://mcp.nhaminhbach.com/mcp live...</pre>
-            </div>
-          </div>
-
-        </div>
       </div>
     </section>
 
@@ -498,7 +308,7 @@
     let benchmarkData = null;
     let activeCase = null;
     let activeAsset = null;
-    let visualMode = 'boxes'; // 'raw' | 'naive' | 'boxes' | 'gt'
+    let visualMode = 'boxes'; // 'raw' | 'boxes' | 'gt'
     let lastPipelineResponse = null;
     let customImageBase64 = null;
 
@@ -514,7 +324,6 @@
       }
 
       renderCaseTabs();
-      renderBenchmarkGrid('all');
       onPolicyChange();
 
       if (benchmarkData.curated_cases && benchmarkData.curated_cases.length > 0) {
@@ -531,8 +340,8 @@
         btn.onclick = () => selectCuratedCase(idx);
         btn.className = 'text-left rounded-lg border p-3 transition ';
         btn.innerHTML = `
-          <div class="mono text-[11px] font-bold text-sky-400 truncate">${c.title}</div>
-          <div class="mt-1 text-[11px] text-slate-300 line-clamp-2">${c.subtitle}</div>
+          <div class="mono text-xs font-bold text-sky-400 truncate">${c.title}</div>
+          <div class="mt-1 text-xs text-slate-300 line-clamp-2">${c.subtitle}</div>
         `;
         container.appendChild(btn);
       });
@@ -558,36 +367,6 @@
       executePipeline(false);
     }
 
-    function selectBenchmarkAsset(filename) {
-      customImageBase64 = null;
-      const foundAsset = benchmarkData.assets.find(a => a.filename === filename);
-      if (!foundAsset) return;
-      activeAsset = foundAsset;
-
-      const matchingCaseIdx = benchmarkData.curated_cases.findIndex(c => c.filename === filename);
-      if (matchingCaseIdx >= 0) {
-        selectCuratedCase(matchingCaseIdx);
-        document.getElementById('inspector').scrollIntoView({ behavior: 'smooth' });
-        return;
-      }
-
-      activeCase = {
-        case_id: filename,
-        title: `Benchmark Asset: ${filename}`,
-        subtitle: `Category: ${foundAsset.category}`,
-        filename: filename,
-        policy_id: 'vn_decree13_147',
-        raw_text: `Phản ánh phòng trọ (${filename}): Chủ nhà sđt 0912345678 lừa đảo giữ tiền cọc 3.500.000đ khi khách báo hỏng điều hòa và thấm tường.`,
-        naive_ocr_boxes: [
-          { box_2d: [250, 120, 650, 880], label: 'FALSE POSITIVE: Context-blind OCR redacts core evidence' }
-        ],
-        naive_failure_note: 'Context-blind OCR/DLP fails to distinguish protected civilian identity headers from evidentiary dispute content.'
-      };
-      document.getElementById('raw-text-input').value = activeCase.raw_text;
-      executePipeline(false);
-      document.getElementById('inspector').scrollIntoView({ behavior: 'smooth' });
-    }
-
     function onPolicyChange() {
       if (!benchmarkData || !benchmarkData.policies) return;
       const pid = document.getElementById('policy-select').value;
@@ -599,6 +378,11 @@
 
     function togglePolicyDrawer() {
       const el = document.getElementById('policy-drawer');
+      el.classList.toggle('hidden');
+    }
+
+    function toggleMcpDrawer() {
+      const el = document.getElementById('mcp-drawer');
       el.classList.toggle('hidden');
     }
 
@@ -621,23 +405,6 @@
       return escaped;
     }
 
-    function renderColorDiff(diffText) {
-      if (!diffText) return '<span class="text-slate-500"># No statutory mutations required</span>';
-      return diffText.split('\n').map(line => {
-        const safe = line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        if (line.startsWith('---') || line.startsWith('+++') || line.startsWith('@@')) {
-          return `<div class="diff-hdr px-2 py-0.5">${safe}</div>`;
-        }
-        if (line.startsWith('-')) {
-          return `<div class="diff-del px-2 py-0.5">${safe}</div>`;
-        }
-        if (line.startsWith('+')) {
-          return `<div class="diff-add px-2 py-0.5">${safe}</div>`;
-        }
-        return `<div class="px-2 py-0.5 text-slate-400">${safe}</div>`;
-      }).join('');
-    }
-
     async function executePipeline(runLiveVlm = false) {
       const rawText = document.getElementById('raw-text-input').value;
       const policyId = document.getElementById('policy-select').value;
@@ -652,7 +419,7 @@
         const payload = {
           text: rawText,
           policy_id: policyId,
-          asset_filename: activeAsset ? activeAsset.filename : '4Z1w_0.webp',
+          asset_filename: activeAsset ? activeAsset.filename : 'yMOa_0.webp',
           image_base64: customImageBase64,
           run_live_vlm: runLiveVlm
         };
@@ -665,10 +432,10 @@
         const data = await res.json();
         lastPipelineResponse = data;
 
-        // Update Left Pane: Gate 1 Token Vault + Sanitized Text + Diff
+        // Update Left Pane
         const tp = data.text_pipeline;
         const vaultKeys = Object.keys(tp.token_vault || {});
-        document.getElementById('vault-count-badge').textContent = `${vaultKeys.length} PII token(s) quarantined`;
+        document.getElementById('vault-count-badge').textContent = `${vaultKeys.length} PII token(s)`;
         document.getElementById('quarantined-text-view').textContent = tp.quarantined_text || '(Empty)';
         document.getElementById('rendered-sanitized-view').innerHTML = formatSanitizedBadges(tp.sanitized_text);
 
@@ -678,10 +445,9 @@
           <span class="rounded bg-rose-500/15 px-1.5 py-0.5 text-rose-300">Profanity: ${tp.counts.profanity_redacted}</span>
         `;
 
-        document.getElementById('unified-diff-view').innerHTML = renderColorDiff(tp.unified_diff);
         document.getElementById('pipeline-latency-label').textContent = `${data.total_pipeline_ms} ms`;
 
-        // Update Right Pane: Visual Inspector
+        // Update Right Pane
         updateVisualInspector();
       } finally {
         if (runLiveVlm) {
@@ -697,13 +463,14 @@
     }
 
     function updateVisualInspector() {
-      const modes = ['raw', 'naive', 'boxes', 'gt'];
+      const modes = ['raw', 'boxes', 'gt'];
       modes.forEach(m => {
         const btn = document.getElementById(`mode-btn-${m}`);
+        if (!btn) return;
         if (m === visualMode) {
-          btn.className = 'rounded px-2.5 py-2 mono text-[11px] font-semibold bg-sky-500 text-slate-950 transition';
+          btn.className = 'rounded px-2.5 py-2 mono text-xs font-semibold bg-sky-500 text-slate-950 transition text-center';
         } else {
-          btn.className = 'rounded px-2.5 py-2 mono text-[11px] font-medium text-slate-300 hover:text-white transition';
+          btn.className = 'rounded px-2.5 py-2 mono text-xs font-medium text-slate-300 hover:text-white transition text-center';
         }
       });
 
@@ -725,22 +492,19 @@
       }
 
       if (visualMode === 'raw') {
-        bannerEl.innerHTML = `<strong class="text-sky-400">[1. Synthetic-PII Raw Input]</strong> Original dispute layout with synthetic mock PII painted over header/phone zones so zero real citizen PII is exposed.`;
-      } else if (visualMode === 'naive') {
-        const note = (activeCase && activeCase.naive_failure_note) || 'Context-blind OCR over-redacts evidentiary numbers while missing visual headers.';
-        bannerEl.innerHTML = `<strong class="text-rose-400">[2. Why Naive OCR / Cloud DLP Fails]</strong> ${note}`;
+        bannerEl.innerHTML = `<strong class="text-sky-400">[1. Input]</strong> Original evidence layout with synthetic mock PII overlay preserving visual context with zero real citizen exposure.`;
       } else if (visualMode === 'boxes') {
-        bannerEl.innerHTML = `<strong class="text-amber-300">[3. Translucid Dual-Pass Bounding Boxes]</strong> Pass 1 (<code class="mono">RedactionPlan</code>) + Pass 2 (<code class="mono">ResidualAudit</code>) emit normalized <code class="mono">[ymin, xmin, ymax, xmax]</code> coordinates (${vp.boxes_applied} box(es)) with +5px safety padding.`;
+        bannerEl.innerHTML = `<strong class="text-amber-300">[2. Translucid Bounding Boxes]</strong> Dual-Pass Gemini VLM emits normalized coordinates (${vp.boxes_applied} box(es)) with strict negative invariant preservation.`;
       } else {
-        bannerEl.innerHTML = `<strong class="text-emerald-400">[4. Final Solid-Black WebP]</strong> Deterministic Pillow engine burns irreversible <code class="mono">(0, 0, 0)</code> solid-black rectangles. Ready for public R2 CDN syndication.`;
+        bannerEl.innerHTML = `<strong class="text-emerald-400">[3. Solid-Black Redacted]</strong> Irreversible <code class="mono">(0, 0, 0)</code> pixel masks burned by deterministic Pillow engine.`;
       }
 
       document.getElementById('meta-status').textContent = (vp.status || 'clean').toUpperCase();
-      document.getElementById('meta-boxes').textContent = `${vp.boxes_applied || 0} box(es) (+5px pad)`;
+      document.getElementById('meta-boxes').textContent = `${vp.boxes_applied || 0} box(es)`;
       document.getElementById('meta-latency').textContent = `${Math.round(vp.latency_ms || 0)} ms (${vp.mode === 'live_gemini_vlm' ? 'Live API' : 'Cached'})`;
       const invs = (activeAsset && activeAsset.negative_invariants && activeAsset.negative_invariants.length > 0)
         ? activeAsset.negative_invariants.join(', ')
-        : 'Room & defect legibility';
+        : 'Dispute evidence legible';
       document.getElementById('meta-invariants').textContent = invs;
 
       renderBoundingBoxes();
@@ -754,134 +518,65 @@
       svg.setAttribute('viewBox', '0 0 1000 1000');
       svg.setAttribute('preserveAspectRatio', 'none');
 
-      if (visualMode === 'naive' && activeCase && activeCase.naive_ocr_boxes) {
-        activeCase.naive_ocr_boxes.forEach(b => {
-          const [ymin, xmin, ymax, xmax] = b.box_2d;
-          const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-          rect.setAttribute('x', xmin);
-          rect.setAttribute('y', ymin);
-          rect.setAttribute('width', Math.max(10, xmax - xmin));
-          rect.setAttribute('height', Math.max(10, ymax - ymin));
-          rect.setAttribute('fill', 'rgba(244, 63, 94, 0.28)');
-          rect.setAttribute('stroke', '#f43f5e');
-          rect.setAttribute('stroke-width', '4');
-          rect.setAttribute('stroke-dasharray', '12,6');
-          svg.appendChild(rect);
-        });
-      } else if (visualMode === 'boxes') {
+      if (visualMode === 'boxes') {
         const vp = lastPipelineResponse.visual_pipeline;
         const boxes = [...(vp.pass1_boxes || []), ...(vp.pass2_leak_boxes || [])];
-        boxes.forEach((b, idx) => {
+        boxes.forEach((b) => {
           const [ymin, xmin, ymax, xmax] = b.box_2d;
           const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
           rect.setAttribute('x', xmin);
           rect.setAttribute('y', ymin);
           rect.setAttribute('width', Math.max(12, xmax - xmin));
           rect.setAttribute('height', Math.max(12, ymax - ymin));
-          rect.setAttribute('fill', 'rgba(56, 189, 248, 0.22)');
+          rect.setAttribute('fill', 'rgba(56, 189, 248, 0.25)');
           rect.setAttribute('stroke', '#38bdf8');
-          rect.setAttribute('stroke-width', '4');
+          rect.setAttribute('stroke-width', '3');
           svg.appendChild(rect);
         });
       }
     }
 
-    function handleCustomImageUpload(event) {
-      const file = event.target.files[0];
+    function handleCustomImageUpload(e) {
+      const file = e.target.files[0];
       if (!file) return;
       const reader = new FileReader();
-      reader.onload = function(e) {
-        customImageBase64 = e.target.result;
-        visualMode = 'gt';
+      reader.onload = function(evt) {
+        customImageBase64 = evt.target.result;
         executePipeline(true);
       };
       reader.readAsDataURL(file);
     }
 
-    function filterBenchmarkGrid(filterType) {
-      ['all', 'redacted', 'clean'].forEach(t => {
-        const btn = document.getElementById(`filter-${t}`);
-        if (t === filterType) {
-          btn.className = 'rounded border border-sky-500/50 bg-sky-500/15 px-3 py-1.5 mono text-xs text-sky-300';
-        } else {
-          btn.className = 'rounded border border-slate-800 bg-slate-900 px-3 py-1.5 mono text-xs text-slate-300 hover:text-white';
-        }
-      });
-      renderBenchmarkGrid(filterType);
-    }
-
-    function renderBenchmarkGrid(filterType) {
-      if (!benchmarkData || !benchmarkData.assets) return;
-      const grid = document.getElementById('benchmark-grid');
-      grid.innerHTML = '';
-
-      const filtered = benchmarkData.assets.filter(a => {
-        if (filterType === 'all') return true;
-        return a.expected_status === filterType;
-      });
-
-      filtered.forEach(asset => {
-        const isMatch = asset.cached_auto_status === asset.expected_status;
-        const isRedacted = asset.expected_status === 'redacted';
-        const card = document.createElement('div');
-        card.onclick = () => selectBenchmarkAsset(asset.filename);
-        card.className = 'cursor-pointer group rounded-lg border border-slate-800 bg-slate-900/60 hover:border-sky-500/60 overflow-hidden transition flex flex-col justify-between';
-        card.innerHTML = `
-          <div>
-            <div class="relative h-32 w-full bg-slate-950 overflow-hidden">
-              <img src="/assets/ground_truth/${asset.filename}" alt="${asset.filename}" loading="lazy"
-                   class="h-full w-full object-cover opacity-90 group-hover:opacity-100 transition" />
-              <span class="absolute top-1.5 left-1.5 rounded px-1.5 py-0.5 mono text-[10px] font-semibold ${isRedacted ? 'bg-amber-500/90 text-slate-950' : 'bg-emerald-500/90 text-slate-950'}">
-                ${asset.expected_status.toUpperCase()}
-              </span>
-              <span class="absolute top-1.5 right-1.5 rounded px-1.5 py-0.5 mono text-[10px] font-semibold ${isMatch ? 'bg-slate-900/90 text-emerald-400 border border-emerald-500/30' : 'bg-rose-950 text-rose-300 border border-rose-500/40'}">
-                ${isMatch ? 'PASS' : 'EDGE'}
-              </span>
-            </div>
-            <div class="p-2.5">
-              <div class="mono text-xs font-bold text-white truncate">${asset.filename}</div>
-              <div class="text-[11px] text-slate-400 truncate mt-0.5">${asset.category}</div>
-            </div>
-          </div>
-          <div class="px-2.5 pb-2.5 pt-1 border-t border-slate-800/60 flex items-center justify-between mono text-[10px] text-slate-400">
-            <span>${asset.cached_boxes_applied} box(es)</span>
-            <span>${(asset.cached_latency_ms / 1000).toFixed(1)}s</span>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-    }
-
     async function runLiveMcpQuery() {
       const sel = document.getElementById('mcp-tool-select').value;
       const outEl = document.getElementById('mcp-response-view');
-      const badgeEl = document.getElementById('mcp-latency-badge');
-      outEl.textContent = 'Executing JSON-RPC 2.0 tools/call against https://mcp.nhaminhbach.com/mcp ...';
+      outEl.textContent = 'Querying https://translucid-nmbreovs7a-as.a.run.app/mcp ...';
 
-      let payload = {
-        tool_name: 'search_rental_listings',
-        arguments: { area: 'Chùa Láng', city: 'HN', radius_km: 2 }
+      let address = 'Ngõ 12 Cầu Giấy, Hà Nội';
+      if (sel === 'phu_do') address = 'Phú Đô, Nam Từ Liêm, Hà Nội';
+      if (sel === 'quan_1') address = '353/2/7 Phạm Ngũ Lão, Quận 1, TP.HCM';
+
+      const payload = {
+        jsonrpc: '2.0',
+        id: Date.now(),
+        method: 'tools/call',
+        params: {
+          name: 'check_address_safety',
+          arguments: { address: address }
+        }
       };
-      if (sel === 'inspect_cau_giay') {
-        payload = {
-          tool_name: 'inspect_building_reputation',
-          arguments: { area: 'Cầu Giấy', city: 'HN', radius_km: 2 }
-        };
-      } else if (sel === 'search_quan_1') {
-        payload = {
-          tool_name: 'search_rental_listings',
-          arguments: { area: 'Quận 1', city: 'SG', radius_km: 2 }
-        };
-      }
 
-      const res = await fetch('/api/mcp-proxy', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      const data = await res.json();
-      badgeEl.textContent = `${data.latency_ms} ms (${data.status})`;
-      outEl.textContent = JSON.stringify(data.response_payload, null, 2);
+      try {
+        const res = await fetch('/mcp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        outEl.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        outEl.textContent = 'Error: ' + err.message;
+      }
     }
 
     window.addEventListener('DOMContentLoaded', initApp);
