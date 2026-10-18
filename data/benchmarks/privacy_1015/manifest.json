@@ -130,20 +130,20 @@
       "cached_auto_status": "redacted",
       "cached_boxes_applied": 2,
       "cached_leak_recovery": false,
-      "cached_latency_ms": 4896.7,
+      "cached_latency_ms": 9335.1,
       "width": 1200,
       "height": 896,
       "cached_boxes": [
         [
-          439,
+          440,
           480,
-          520,
-          526
+          517,
+          525
         ],
         [
           648,
-          389,
-          678,
+          390,
+          679,
           418
         ]
       ]

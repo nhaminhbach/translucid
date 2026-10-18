@@ -54,9 +54,9 @@ def call_gemini_with_retry(
     delay = initial_delay
     last_err: Exception | None = None
     candidate_models = [model]
-    for alt in ("gemini-3.5-flash-lite", "gemini-3.8-flash"):
-        if alt not in candidate_models:
-            candidate_models.append(alt)
+    fallback = "gemini-3.5-flash-lite" if model == "gemini-3.8-flash" else "gemini-3.8-flash"
+    if fallback not in candidate_models:
+        candidate_models.append(fallback)
 
     for m in candidate_models:
         for attempt in range(max_retries + 1):
@@ -114,18 +114,22 @@ def process_review_image(
     input_path: str | Path | Image.Image,
     output_path: str | Path,
     client: genai.Client | None = None,
-    model: str = "gemini-3.5-flash-lite",
+    pass1_model: str = "gemini-3.8-flash",
+    pass2_model: str = "gemini-3.5-flash-lite",
+    model: str | None = None,
     padding: int = 5
 ) -> dict[str, Any]:
     """
     Executes automated dual-pass visual privacy redaction on a review proof asset:
-    1. Pass 1: High-recall spatial token bounding box detection.
+    1. Pass 1 (Gemini 3.8 Flash): High-recall spatial token bounding box detection.
     2. Pillow: Solid black rectangular masking with adaptive padding.
-    3. Pass 2: Additive residual leak audit with additive recovery (capped at 1 retry).
+    3. Pass 2 (Gemini 3.5 Flash Lite): Additive residual leak audit with additive recovery (capped at 1 retry).
     4. WebP encoding (Quality 90, Method 6).
     """
     t0 = time.time()
     effective_client = client or get_genai_client()
+    effective_p1_model = model or pass1_model
+    effective_p2_model = model or pass2_model
     out_p = Path(output_path)
     out_p.parent.mkdir(parents=True, exist_ok=True)
 
@@ -150,7 +154,7 @@ def process_review_image(
 
     p1_response = call_gemini_with_retry(
         client=effective_client,
-        model=model,
+        model=effective_p1_model,
         contents=[working_img, pass1_prompt],
         config=types.GenerateContentConfig(
             response_mime_type="application/json",
@@ -196,7 +200,7 @@ def process_review_image(
 
     p2_response = call_gemini_with_retry(
         client=effective_client,
-        model=model,
+        model=effective_p2_model,
         contents=[masked_img, pass2_prompt],
         config=types.GenerateContentConfig(
             response_mime_type="application/json",
