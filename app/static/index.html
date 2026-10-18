@@ -574,7 +574,7 @@
       // Immediately preview selected case asset to prevent media lag
       const imgEl = document.getElementById('inspector-image');
       const fname = activeAsset ? activeAsset.filename : selected.filename;
-      imgEl.src = (visualMode === 'gt') ? `/assets/ground_truth/${fname}` : `/assets/raw/${fname}`;
+      imgEl.src = (visualMode === 'gt') ? `/assets/ground_truth/${fname}?v=20261019` : `/assets/raw/${fname}?v=20261019`;
 
       const badge = document.getElementById('visual-status-badge');
       badge.className = 'rounded-[4px] bg-[#F7F5F2] border border-[#E2E8F0] px-2.5 py-1 space-mono text-[11px] text-[#6C7278]';
@@ -731,12 +731,13 @@
 
       const vp = lastVisualResponse.visual_pipeline;
       const fname = activeAsset ? activeAsset.filename : 'custom_upload.webp';
+      const withBust = (u) => (u && !u.startsWith('data:') && !u.includes('?')) ? `${u}?v=20261019` : u;
       if (customImageBase64) {
         imgEl.src = (visualMode === 'gt' && vp.redacted_data_url) ? vp.redacted_data_url : customImageBase64;
       } else if (visualMode === 'gt') {
-        imgEl.src = vp.redacted_data_url || vp.redacted_url || `/assets/ground_truth/${fname}`;
+        imgEl.src = withBust(vp.redacted_data_url || vp.redacted_url || `/assets/ground_truth/${fname}`);
       } else {
-        imgEl.src = vp.raw_url || `/assets/raw/${fname}`;
+        imgEl.src = withBust(vp.raw_url || `/assets/raw/${fname}`);
       }
 
       if (visualMode === 'raw') {

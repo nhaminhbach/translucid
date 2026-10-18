@@ -181,7 +181,7 @@ def serve_benchmark_asset(folder: str, filename: str) -> FileResponse:
     return FileResponse(
         file_path,
         media_type="image/webp",
-        headers={"Cache-Control": "public, max-age=3600"},
+        headers={"Cache-Control": "no-cache, no-store, must-revalidate", "Pragma": "no-cache"},
     )
 
 
@@ -381,8 +381,8 @@ def run_redaction_pipeline(req: RedactRequest) -> dict[str, Any]:
                         "pass1_boxes": v_res.get("pass1_boxes", []),
                         "pass2_leak_boxes": v_res.get("pass2_leak_boxes", []),
                         "latency_ms": v_res.get("latency_ms", 0.0),
-                        "raw_url": f"/assets/raw/{fname}",
-                        "redacted_url": f"/assets/ground_truth/{fname}",
+                        "raw_url": f"/assets/raw/{fname}?v=20261019",
+                        "redacted_url": f"/assets/ground_truth/{fname}?v=20261019",
                         "redacted_data_url": f"data:image/webp;base64,{out_b64}",
                     })
                 except Exception as err:  # noqa: BLE001
@@ -396,8 +396,8 @@ def run_redaction_pipeline(req: RedactRequest) -> dict[str, Any]:
                         "pass2_leak_boxes": [],
                         "latency_ms": asset_meta.get("cached_latency_ms", 120.0),
                         "error_note": str(err),
-                        "raw_url": f"/assets/raw/{fname}",
-                        "redacted_url": f"/assets/ground_truth/{fname}",
+                        "raw_url": f"/assets/raw/{fname}?v=20261019",
+                        "redacted_url": f"/assets/ground_truth/{fname}?v=20261019",
                     })
             finally:
                 tmp_out_path.unlink(missing_ok=True)
@@ -419,8 +419,8 @@ def run_redaction_pipeline(req: RedactRequest) -> dict[str, Any]:
                 "pass1_boxes": p1_boxes,
                 "pass2_leak_boxes": [],
                 "latency_ms": asset_meta.get("cached_latency_ms", 0.0),
-                "raw_url": f"/assets/raw/{fname}" if raw_p.exists() else None,
-                "redacted_url": f"/assets/ground_truth/{fname}" if gt_p.exists() else None,
+                "raw_url": f"/assets/raw/{fname}?v=20261019" if raw_p.exists() else None,
+                "redacted_url": f"/assets/ground_truth/{fname}?v=20261019" if gt_p.exists() else None,
             })
 
     return {
