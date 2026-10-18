@@ -31,7 +31,6 @@ def test_benchmark_api_endpoint():
     assert data["accuracy_pct"] >= 95.0
     assert len(data["curated_cases"]) == 3
     assert "vn_decree13_147" in data["policies"]
-    assert "sg_pdpa_poha" in data["policies"]
 
 
 def test_redact_api_pipeline_execution():

@@ -12,7 +12,7 @@ Built for **Google Cloud AI Builder Cup 2026** (Theme 5: Future of Work & Enterp
 
 ## 1. The Whistleblower Catch-22 (Problem Alignment)
 
-In developing and high-asymmetry markets across JAPAC, everyday citizens reporting rental scams, deposit theft, or consumer fraud are trapped between predatory operators and strict defamation and privacy statutes (**Vietnam Decree 13/2023/ND-CP & Decree 147/2024/ND-CP, Penal Code Art 156; Singapore PDPA & POHA**):
+In developing and high-asymmetry markets across JAPAC, everyday citizens reporting rental scams, deposit theft, or consumer fraud are trapped between predatory operators and strict defamation and privacy statutes (**Vietnam Decree 13/2023/ND-CP & Decree 147/2024/ND-CP, Penal Code Art 156**):
 
 - **If they speak out** with raw screenshots (Zalo/Messenger chats, bank transfer receipts, lease contracts), they and the hosting platform face legal takedowns, administrative fines, or retaliatory doxxing.
 - **If they stay silent** (or platforms censor reviews entirely to avoid liability), predatory operators continue unpunished.
@@ -49,20 +49,20 @@ translucid/
 ├── app/
 │   ├── main.py                 # FastAPI backend (/api/benchmark, /api/redact, /api/mcp-proxy)
 │   └── static/index.html       # Single-page interactive showcase & live Gemini redaction workbench
-├── configs/policies/           # Declarative statutory profiles (VN Decree 13/147, SG PDPA/POHA)
+├── configs/policies/           # Declarative statutory profile (VN Decree 13/147 + Civil Code 328)
 ├── data/benchmarks/            # 27-asset canonical benchmark dataset (privacy_1015)
 ├── translucid/
 │   ├── visual/                 # Dual-pass VLM engine, Pydantic schemas, solid-black Pillow masks
 │   ├── text/                   # NFKC sanitizer, token vault, statutory claim mapping, unified diff
 │   └── eval/                   # Offline CI & live Gemini/Vertex AI benchmark runner
-├── tests/                      # 28 unit, benchmark regression, and FastAPI integration tests
+├── tests/                      # 29 unit, benchmark regression, and FastAPI integration tests
 └── Dockerfile                  # Scale-to-zero Google Cloud Run container
 ```
 
 ## 4. Quickstart & Cloud Run Deployment
 
 ```bash
-# 1. Run all 28 unit, benchmark, and FastAPI integration tests
+# 1. Run all 29 unit, benchmark, and FastAPI integration tests
 uv run pytest -v
 
 # 2. Launch the Interactive Showcase & Live Redaction Workbench locally

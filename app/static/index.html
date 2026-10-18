@@ -3,92 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Translucid — Zero-Trust Selective Transparency Engine | AI Builder Cup 2026</title>
+  <title>Translucid — Zero-Trust Selective Transparency Engine</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #0b0f17;
-      color: #e2e8f0;
+      font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #F7F5F2;
+      color: #1A1C1E;
     }
-    .mono {
-      font-family: 'JetBrains Mono', monospace;
+    .space-mono {
+      font-family: 'Space Grotesk', monospace;
+      letter-spacing: 0.08em;
     }
     .badge-claim {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      background: rgba(245, 158, 11, 0.15);
-      border: 1px solid rgba(245, 158, 11, 0.45);
-      color: #fcd34d;
-      padding: 1px 7px;
+      background: #FEF3C7;
+      border: 1px solid #F59E0B;
+      color: #92400E;
+      padding: 1px 6px;
       border-radius: 4px;
-      font-size: 0.78rem;
-      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-family: 'Space Grotesk', monospace;
+      font-weight: 600;
     }
     .badge-pii {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      background: rgba(56, 189, 248, 0.15);
-      border: 1px solid rgba(56, 189, 248, 0.45);
-      color: #7dd3fc;
-      padding: 1px 7px;
+      background: #EFF6FF;
+      border: 1px solid #93C5FD;
+      color: #1E40AF;
+      padding: 1px 6px;
       border-radius: 4px;
-      font-size: 0.78rem;
-      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-family: 'Space Grotesk', monospace;
+      font-weight: 600;
     }
     .badge-profanity {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      background: rgba(244, 63, 94, 0.15);
-      border: 1px solid rgba(244, 63, 94, 0.45);
-      color: #fda4af;
-      padding: 1px 7px;
+      background: #FEE2E2;
+      border: 1px solid #F87171;
+      color: #991B1B;
+      padding: 1px 6px;
       border-radius: 4px;
-      font-size: 0.78rem;
-      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-family: 'Space Grotesk', monospace;
+      font-weight: 600;
     }
   </style>
 </head>
-<body class="min-h-screen antialiased selection:bg-sky-500 selection:text-white">
+<body class="min-h-screen antialiased selection:bg-[#B8422E] selection:text-white">
 
-  <!-- Top Navigation & Unified Context Header -->
-  <header class="sticky top-0 z-40 border-b border-slate-800/80 bg-[#0b0f17]/95 backdrop-blur-md">
+  <!-- Top Navigation -->
+  <header class="sticky top-0 z-40 border-b border-[#E2E8F0] bg-white">
     <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
       <div class="flex items-center gap-3">
-        <div class="flex h-8 w-8 items-center justify-center rounded bg-sky-500/10 border border-sky-500/40 mono text-xs font-bold text-sky-400">
+        <div class="flex h-8 w-8 items-center justify-center rounded-[4px] bg-[#1A1C1E] space-mono text-xs font-bold text-white">
           TL
         </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="font-bold tracking-tight text-white">TRANSLUCID</span>
-            <span class="rounded bg-slate-800 px-1.5 py-0.5 mono text-[11px] text-slate-300">v0.1.0</span>
-            <span id="engine-status-pill" class="rounded bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 mono text-[11px] text-emerald-400">
-              Google Cloud Run Ready
-            </span>
-          </div>
-          <p class="text-[11px] text-slate-400 hidden sm:block">
-            Theme 5: Future of Work &amp; Enterprise Productivity | Design Partner: nhaminhbach.com (32,600+ WAU)
-          </p>
+        <div class="flex items-center gap-2">
+          <span class="text-base font-bold tracking-tight text-[#1A1C1E]">TRANSLUCID</span>
+          <span class="rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] px-1.5 py-0.5 space-mono text-[11px] text-[#6C7278]">
+            v0.1.0
+          </span>
+          <span id="engine-status-pill" class="rounded-full bg-emerald-50 border border-emerald-200 px-2 py-0.5 space-mono text-[11px] text-emerald-800">
+            Google Cloud Run Ready
+          </span>
         </div>
       </div>
 
       <div class="flex items-center gap-2">
-        <button onclick="toggleMcpDrawer()"
-                class="rounded border border-sky-500/40 bg-sky-500/10 px-3 py-1.5 text-xs font-medium text-sky-300 hover:bg-sky-500/20 transition">
-          Gemini MCP Endpoint
-        </button>
         <a href="https://github.com/nhaminhbach/translucid" target="_blank" rel="noopener"
-           class="rounded border border-slate-700 bg-slate-800/70 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-500 hover:text-white transition">
+           class="rounded-[4px] border border-[#E2E8F0] bg-white px-3 py-1.5 text-xs font-medium text-[#1A1C1E] hover:border-[#6C7278] transition">
           GitHub Repo
         </a>
         <a href="https://nhaminhbach.com" target="_blank" rel="noopener"
-           class="rounded bg-sky-500 px-3 py-1.5 text-xs font-semibold text-slate-950 hover:bg-sky-400 transition">
+           class="rounded-[4px] bg-[#B8422E] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#A23522] transition">
           Customer #1
         </a>
       </div>
@@ -97,84 +91,41 @@
 
   <main class="mx-auto max-w-7xl px-4 py-6 sm:px-6 space-y-6">
 
-    <!-- INTERACTIVE PIPELINE WORKBENCH & LIVE GEMINI SANDBOX -->
-    <section id="inspector" class="space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+    <!-- Workbench Header -->
+    <section class="space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <div class="mono text-xs font-semibold uppercase tracking-wider text-sky-400">
-            Interactive Pipeline Workbench &amp; Live Gemini Sandbox
+          <div class="space-mono text-xs font-semibold uppercase text-[#B8422E]">
+            Selective Redaction Sandbox
           </div>
-          <h1 class="mt-1 text-xl sm:text-2xl font-bold text-white">
-            Selective Redaction Sandbox: Input Review, Pre-Inference Tokens &amp; Dual-Pass Visual Engine
+          <h1 class="text-xl sm:text-2xl font-bold text-[#1A1C1E] tracking-tight">
+            Translucid Verification Workbench
           </h1>
         </div>
 
-        <!-- Statutory Policy Selector -->
         <div class="flex items-center gap-2">
-          <span class="mono text-xs text-slate-400">Statutory Policy:</span>
-          <select id="policy-select" onchange="onPolicyChange()"
-                  class="rounded border border-slate-700 bg-slate-900 px-3 py-1.5 mono text-xs text-white focus:border-sky-500 focus:outline-none">
-            <option value="vn_decree13_147">vn_decree13_147.yaml (Vietnam Decree 13/147 + Art 328)</option>
-            <option value="sg_pdpa_poha">sg_pdpa_poha.yaml (Singapore PDPA + POHA Anti-Doxxing)</option>
-          </select>
-          <button onclick="togglePolicyDrawer()"
-                  class="rounded border border-slate-700 bg-slate-800 px-2.5 py-1.5 mono text-xs text-slate-300 hover:text-white transition">
-            View YAML
-          </button>
+          <span class="rounded-full border border-[#E2E8F0] bg-white px-3 py-1 space-mono text-xs text-[#6C7278]">
+            Statutory Policy: Vietnam Decree 13/147 &amp; Civil Code 328
+          </span>
+          <input type="hidden" id="policy-select" value="vn_decree13_147" />
         </div>
-      </div>
-
-      <!-- Collapsible Policy YAML Drawer -->
-      <div id="policy-drawer" class="hidden rounded-lg border border-slate-800 bg-slate-950 p-4">
-        <div class="flex items-center justify-between mb-2">
-          <span class="mono text-xs font-semibold text-sky-400">Declarative Statutory Policy Profile (configs/policies/)</span>
-          <button onclick="togglePolicyDrawer()" class="mono text-xs text-slate-400 hover:text-white">[Close]</button>
-        </div>
-        <pre id="policy-yaml-content" class="mono text-xs text-slate-300 overflow-x-auto leading-relaxed"></pre>
-      </div>
-
-      <!-- Collapsible Gemini App MCP Drawer -->
-      <div id="mcp-drawer" class="hidden rounded-lg border border-sky-500/30 bg-slate-950 p-4 space-y-3">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <span class="mono text-xs font-semibold text-sky-400">Google Gemini Connected App MCP Endpoint (Cloud Run Native)</span>
-            <span class="rounded bg-slate-800 px-2 py-0.5 mono text-[10px] text-slate-300">JSON-RPC 2.0</span>
-          </div>
-          <button onclick="toggleMcpDrawer()" class="mono text-xs text-slate-400 hover:text-white">[Close]</button>
-        </div>
-        <p class="text-xs text-slate-300">
-          Native Streamable HTTP JSON-RPC 2.0 server deployed directly on Google Cloud Run at <code class="mono text-sky-300">https://translucid-nmbreovs7a-as.a.run.app/mcp</code>. Exposes <code class="mono">check_address_safety</code> for direct Google Gemini integration.
-        </p>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-          <select id="mcp-tool-select"
-                  class="rounded border border-slate-700 bg-slate-900 px-2.5 py-1.5 mono text-xs text-white sm:col-span-2">
-            <option value="cau_giay">check_address_safety(address="Ngõ 12 Cầu Giấy, Hà Nội")</option>
-            <option value="phu_do">check_address_safety(address="Phú Đô, Nam Từ Liêm, Hà Nội")</option>
-            <option value="quan_1">check_address_safety(address="353/2/7 Phạm Ngũ Lão, Quận 1, TP.HCM")</option>
-          </select>
-          <button onclick="runLiveMcpQuery()"
-                  class="rounded bg-sky-500 px-3 py-1.5 mono text-xs font-semibold text-slate-950 hover:bg-sky-400 transition">
-            Test MCP Query
-          </button>
-        </div>
-        <pre id="mcp-response-view" class="mono text-[11px] text-slate-300 bg-slate-900/90 border border-slate-800 rounded p-3 max-h-40 overflow-y-auto whitespace-pre-wrap leading-relaxed">Click "Test MCP Query" to test https://translucid-nmbreovs7a-as.a.run.app/mcp live...</pre>
       </div>
 
       <!-- Curated Case Study Tabs (Exactly 3 High-Contrast Use Cases) -->
-      <div id="case-tabs" class="grid grid-cols-1 gap-2 sm:grid-cols-3"></div>
+      <div id="case-tabs" class="grid grid-cols-1 gap-3 sm:grid-cols-3"></div>
 
       <!-- Main Split-Pane Inspector -->
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
 
-        <!-- LEFT COLUMN (5 cols): Input Review, Quarantined Tokens & Public Copy -->
-        <div class="lg:col-span-5 flex flex-col gap-4 rounded-xl border border-slate-800 bg-slate-900/60 p-5">
-          <div class="flex items-center justify-between">
+        <!-- LEFT COLUMN: Input Review, Pre-Inference Tokens & Public Record -->
+        <div class="lg:col-span-5 flex flex-col gap-4 rounded-[8px] border border-[#E2E8F0] bg-white p-5">
+          <div class="flex items-center justify-between pb-3 border-b border-[#E2E8F0]">
             <div>
-              <span class="mono text-xs font-semibold text-sky-400">TEXT PIPELINE</span>
-              <h2 class="text-sm font-semibold text-white">Whistleblower Review Sanitizer</h2>
+              <span class="space-mono text-xs font-semibold text-[#6C7278]">TEXT PIPELINE</span>
+              <h2 class="text-sm font-semibold text-[#1A1C1E]">Whistleblower Review Sanitizer</h2>
             </div>
             <button id="run-live-btn" onclick="executePipeline(true)"
-                    class="rounded bg-sky-500 px-3 py-1.5 mono text-xs font-semibold text-slate-950 hover:bg-sky-400 transition">
+                    class="rounded-[4px] bg-[#B8422E] px-3 py-1.5 space-mono text-xs font-semibold text-white hover:bg-[#A23522] transition">
               Run Live Pipeline
             </button>
           </div>
@@ -182,108 +133,108 @@
           <!-- Input Review (Editable) -->
           <div>
             <div class="flex items-center justify-between mb-1">
-              <label class="block mono text-[11px] text-slate-400 font-semibold">
-                INPUT REVIEW (EDITABLE):
+              <label class="block space-mono text-[11px] font-semibold text-[#6C7278]">
+                INPUT REVIEW (EDITABLE)
               </label>
-              <span id="pipeline-latency-label" class="mono text-[11px] text-slate-400">0.0 ms</span>
+              <span id="pipeline-latency-label" class="space-mono text-[11px] text-[#6C7278]">0.0 ms</span>
             </div>
             <textarea id="raw-text-input" rows="4" oninput="executePipeline(false)"
-                      class="w-full rounded-lg border border-slate-700 bg-slate-950 p-3 text-xs text-slate-200 focus:border-sky-500 focus:outline-none leading-relaxed"></textarea>
+                      class="w-full rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] p-3 text-xs text-[#1A1C1E] focus:border-[#B8422E] focus:bg-white focus:outline-none leading-relaxed transition"></textarea>
           </div>
 
           <!-- Quarantined Tokens (Gate 1 Local Token Vault) -->
-          <div class="rounded-lg border border-slate-800 bg-slate-950/90 p-3">
+          <div class="rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] p-3">
             <div class="flex items-center justify-between">
-              <span class="mono text-[11px] font-semibold text-amber-400">QUARANTINED TOKENS (PRE-INFERENCE VAULT)</span>
-              <span id="vault-count-badge" class="mono text-[11px] text-slate-400">0 tokens</span>
+              <span class="space-mono text-[11px] font-semibold text-[#B8422E]">GATE 1 PRE-INFERENCE VAULT</span>
+              <span id="vault-count-badge" class="space-mono text-[11px] text-[#6C7278]">0 tokens</span>
             </div>
-            <p id="quarantined-text-view" class="mt-1.5 mono text-xs text-slate-300 break-words leading-relaxed"></p>
+            <p id="quarantined-text-view" class="mt-1.5 font-mono text-xs text-[#1A1C1E] break-words leading-relaxed"></p>
           </div>
 
           <!-- Public Copy (Sanitized Statutory Badges) -->
-          <div class="rounded-lg border border-slate-800 bg-slate-950/90 p-3 flex-1 flex flex-col justify-between">
+          <div class="rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] p-3 flex-1 flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-1.5">
-                <span class="mono text-[11px] font-semibold text-emerald-400">PUBLIC COPY (STATUTORY PROJECTION)</span>
-                <div id="statutory-counts" class="flex gap-1.5 mono text-[10px]"></div>
+                <span class="space-mono text-[11px] font-semibold text-emerald-800">PUBLIC COPY (STATUTORY PROJECTION)</span>
+                <div id="statutory-counts" class="flex gap-1.5 space-mono text-[10px]"></div>
               </div>
-              <div id="rendered-sanitized-view" class="text-xs text-slate-200 leading-relaxed"></div>
+              <div id="rendered-sanitized-view" class="text-xs text-[#1A1C1E] leading-relaxed"></div>
             </div>
-            <div class="pt-3 mt-3 border-t border-slate-800/60 flex items-center justify-between mono text-[11px] text-slate-400">
-              <span>Customer #1 Display Copy</span>
-              <a href="https://nhaminhbach.com" target="_blank" rel="noopener" class="text-sky-400 hover:underline">
+            <div class="pt-3 mt-3 border-t border-[#E2E8F0] flex items-center justify-between space-mono text-[11px] text-[#6C7278]">
+              <span>Customer #1 Verified Record</span>
+              <a href="https://nhaminhbach.com" target="_blank" rel="noopener" class="text-[#B8422E] font-medium hover:underline">
                 nhaminhbach.com &rarr;
               </a>
             </div>
           </div>
         </div>
 
-        <!-- RIGHT COLUMN (7 cols): Visual Redaction Canvas & 3-Mode Streamlined Inspector -->
-        <div class="lg:col-span-7 flex flex-col gap-4 rounded-xl border border-slate-800 bg-slate-900/60 p-5">
-          <div class="flex flex-wrap items-center justify-between gap-2">
+        <!-- RIGHT COLUMN: Visual Redaction Canvas & 3-Mode Streamlined Inspector -->
+        <div class="lg:col-span-7 flex flex-col gap-4 rounded-[8px] border border-[#E2E8F0] bg-white p-5">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-[#E2E8F0]">
             <div>
-              <span class="mono text-xs font-semibold text-sky-400">VISUAL REDACTION PIPELINE</span>
-              <h2 id="active-asset-title" class="text-sm font-semibold text-white">Asset: yMOa_0.webp</h2>
+              <span class="space-mono text-xs font-semibold text-[#6C7278]">VISUAL REDACTION PIPELINE</span>
+              <h2 id="active-asset-title" class="text-sm font-semibold text-[#1A1C1E]">Asset: yMOa_0.webp</h2>
             </div>
 
             <!-- Custom Image Upload + Live VLM Trigger -->
             <div class="flex items-center gap-2">
-              <label class="cursor-pointer rounded border border-slate-700 bg-slate-800 px-2.5 py-1.5 mono text-xs text-slate-200 hover:border-slate-500 transition">
+              <label class="cursor-pointer rounded-[4px] border border-[#E2E8F0] bg-white px-2.5 py-1.5 space-mono text-xs text-[#1A1C1E] hover:border-[#6C7278] transition">
                 Upload Custom Image
                 <input type="file" id="custom-image-input" accept="image/*" class="hidden" onchange="handleCustomImageUpload(event)" />
               </label>
               <button onclick="executePipeline(true)"
-                      class="rounded bg-emerald-500/20 border border-emerald-500/50 px-3 py-1.5 mono text-xs font-semibold text-emerald-300 hover:bg-emerald-500/30 transition">
+                      class="rounded-[4px] bg-[#B8422E] px-3 py-1.5 space-mono text-xs font-semibold text-white hover:bg-[#A23522] transition">
                 Run Live VLM Pass 1+2
               </button>
             </div>
           </div>
 
           <!-- 3-Mode Visual Comparison Bar -->
-          <div class="grid grid-cols-3 gap-1.5 rounded-lg bg-slate-950 p-1.5 border border-slate-800">
+          <div class="grid grid-cols-3 gap-2 rounded-[4px] bg-[#F7F5F2] p-1 border border-[#E2E8F0]">
             <button id="mode-btn-raw" onclick="setVisualMode('raw')"
-                    class="rounded px-2.5 py-2 mono text-xs font-medium transition text-center">
+                    class="rounded-[4px] px-2.5 py-1.5 space-mono text-xs font-medium transition text-center">
               1. Input
             </button>
             <button id="mode-btn-boxes" onclick="setVisualMode('boxes')"
-                    class="rounded px-2.5 py-2 mono text-xs font-medium transition text-center">
+                    class="rounded-[4px] px-2.5 py-1.5 space-mono text-xs font-medium transition text-center">
               2. Bounding Boxes
             </button>
             <button id="mode-btn-gt" onclick="setVisualMode('gt')"
-                    class="rounded px-2.5 py-2 mono text-xs font-medium transition text-center">
+                    class="rounded-[4px] px-2.5 py-1.5 space-mono text-xs font-medium transition text-center">
               3. Redacted
             </button>
           </div>
 
           <!-- Diagnostic Banner -->
-          <div id="visual-diagnostic-banner" class="rounded-lg border border-slate-800 bg-slate-950/90 px-3.5 py-2 text-xs text-slate-300"></div>
+          <div id="visual-diagnostic-banner" class="rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] px-3 py-2 text-xs text-[#6C7278]"></div>
 
           <!-- Interactive Image + SVG Overlay Viewport -->
-          <div class="relative flex items-center justify-center rounded-lg border border-slate-800 bg-slate-950 overflow-hidden min-h-[380px] max-h-[500px]">
-            <div class="relative inline-block max-h-[480px]">
+          <div class="relative flex items-center justify-center rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] overflow-hidden min-h-[360px] max-h-[480px]">
+            <div class="relative inline-block max-h-[460px]">
               <img id="inspector-image" src="/assets/ground_truth/yMOa_0.webp" alt="Dispute Evidence Asset"
-                   class="max-h-[460px] w-auto object-contain block select-none" onload="renderBoundingBoxes()" />
+                   class="max-h-[440px] w-auto object-contain block select-none" onload="renderBoundingBoxes()" />
               <svg id="bbox-overlay-svg" class="pointer-events-none absolute inset-0 h-full w-full"></svg>
             </div>
           </div>
 
           <!-- Telemetry Footer for Active Asset -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
-            <div class="rounded border border-slate-800 bg-slate-950/70 px-3 py-2">
-              <div class="mono text-[10px] text-slate-400">PIPELINE DECISION</div>
-              <div id="meta-status" class="mono text-xs font-bold text-white mt-0.5">CLEAN</div>
+            <div class="rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] px-3 py-2">
+              <div class="space-mono text-[10px] text-[#6C7278]">DECISION</div>
+              <div id="meta-status" class="space-mono text-xs font-bold text-[#1A1C1E] mt-0.5">CLEAN</div>
             </div>
-            <div class="rounded border border-slate-800 bg-slate-950/70 px-3 py-2">
-              <div class="mono text-[10px] text-slate-400">MASKED BOXES</div>
-              <div id="meta-boxes" class="mono text-xs font-bold text-sky-400 mt-0.5">0 boxes</div>
+            <div class="rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] px-3 py-2">
+              <div class="space-mono text-[10px] text-[#6C7278]">MASKED BOXES</div>
+              <div id="meta-boxes" class="space-mono text-xs font-bold text-[#B8422E] mt-0.5">0 boxes</div>
             </div>
-            <div class="rounded border border-slate-800 bg-slate-950/70 px-3 py-2">
-              <div class="mono text-[10px] text-slate-400">VLM LATENCY</div>
-              <div id="meta-latency" class="mono text-xs font-bold text-emerald-400 mt-0.5">4,666 ms</div>
+            <div class="rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] px-3 py-2">
+              <div class="space-mono text-[10px] text-[#6C7278]">VLM LATENCY</div>
+              <div id="meta-latency" class="space-mono text-xs font-bold text-emerald-800 mt-0.5">4,666 ms</div>
             </div>
-            <div class="rounded border border-slate-800 bg-slate-950/70 px-3 py-2">
-              <div class="mono text-[10px] text-slate-400">NEGATIVE INVARIANT</div>
-              <div id="meta-invariants" class="mono text-xs font-bold text-amber-300 mt-0.5 truncate">Contract terms intact</div>
+            <div class="rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] px-3 py-2">
+              <div class="space-mono text-[10px] text-[#6C7278]">NEGATIVE INVARIANT</div>
+              <div id="meta-invariants" class="space-mono text-xs font-bold text-[#1A1C1E] mt-0.5 truncate">Contract terms intact</div>
             </div>
           </div>
         </div>
@@ -293,13 +244,13 @@
 
   </main>
 
-  <footer class="border-t border-slate-800/80 py-6 mt-12">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+  <footer class="border-t border-[#E2E8F0] bg-white py-5 mt-10">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#6C7278]">
       <div>
-        <strong class="text-white">Translucid</strong> — Open-Source Zero-Trust Selective Transparency Engine (Apache-2.0)
+        <strong class="text-[#1A1C1E]">Translucid</strong> — Open-Source Zero-Trust Selective Transparency Engine (Apache-2.0)
       </div>
-      <div class="mono text-[11px]">
-        Google Cloud AI Builder Cup 2026 | Theme 5: Future of Work &amp; Enterprise Productivity
+      <div class="space-mono text-[11px]">
+        System of Record: nhaminhbach.com | Hosted on Google Cloud Run
       </div>
     </div>
   </footer>
@@ -320,11 +271,10 @@
       if (benchmarkData.live_gemini_configured) {
         statusPill.textContent = 'Live Gemini 3.5 Flash Lite Active';
       } else {
-        statusPill.textContent = 'Cloud Run Ready (Deterministic + Cached VLM)';
+        statusPill.textContent = 'Google Cloud Run Ready';
       }
 
       renderCaseTabs();
-      onPolicyChange();
 
       if (benchmarkData.curated_cases && benchmarkData.curated_cases.length > 0) {
         selectCuratedCase(0);
@@ -338,10 +288,10 @@
         const btn = document.createElement('button');
         btn.id = `case-tab-${idx}`;
         btn.onclick = () => selectCuratedCase(idx);
-        btn.className = 'text-left rounded-lg border p-3 transition ';
+        btn.className = 'text-left rounded-[8px] border p-3 transition bg-white ';
         btn.innerHTML = `
-          <div class="mono text-xs font-bold text-sky-400 truncate">${c.title}</div>
-          <div class="mt-1 text-xs text-slate-300 line-clamp-2">${c.subtitle}</div>
+          <div class="space-mono text-xs font-bold text-[#1A1C1E] truncate">${c.title}</div>
+          <div class="mt-1 text-xs text-[#6C7278] line-clamp-2">${c.subtitle}</div>
         `;
         container.appendChild(btn);
       });
@@ -353,37 +303,15 @@
       benchmarkData.curated_cases.forEach((_, i) => {
         const el = document.getElementById(`case-tab-${i}`);
         if (i === idx) {
-          el.className = 'text-left rounded-lg border border-sky-500 bg-sky-500/10 p-3 transition';
+          el.className = 'text-left rounded-[8px] border-2 border-[#B8422E] bg-white p-3 transition';
         } else {
-          el.className = 'text-left rounded-lg border border-slate-800 bg-slate-900/50 hover:border-slate-700 p-3 transition';
+          el.className = 'text-left rounded-[8px] border border-[#E2E8F0] bg-white hover:border-[#6C7278] p-3 transition';
         }
       });
 
       document.getElementById('raw-text-input').value = activeCase.raw_text;
-      document.getElementById('policy-select').value = activeCase.policy_id;
-      onPolicyChange();
-
       activeAsset = benchmarkData.assets.find(a => a.filename === activeCase.filename) || benchmarkData.assets[0];
       executePipeline(false);
-    }
-
-    function onPolicyChange() {
-      if (!benchmarkData || !benchmarkData.policies) return;
-      const pid = document.getElementById('policy-select').value;
-      const pol = benchmarkData.policies[pid];
-      if (pol) {
-        document.getElementById('policy-yaml-content').textContent = pol.raw_yaml;
-      }
-    }
-
-    function togglePolicyDrawer() {
-      const el = document.getElementById('policy-drawer');
-      el.classList.toggle('hidden');
-    }
-
-    function toggleMcpDrawer() {
-      const el = document.getElementById('mcp-drawer');
-      el.classList.toggle('hidden');
     }
 
     function formatSanitizedBadges(sanitizedText) {
@@ -394,13 +322,13 @@
         .replace(/>/g, '&gt;');
 
       escaped = escaped.replace(/\[\[pii:([^\]]+)\]\]/g, (_, val) => {
-        return `<span class="badge-pii" title="Decree 13/2023/ND-CP Personal Data Masking">PII: ${val}</span>`;
+        return `<span class="badge-pii">PII: ${val}</span>`;
       });
       escaped = escaped.replace(/\[\[claim:([^\]]+)\]\]/g, (_, val) => {
-        return `<span class="badge-claim" title="Penal Code Art 156 -> Civil Code Art 328 Neutralization">CLAIM: ${val}</span>`;
+        return `<span class="badge-claim">CLAIM: ${val}</span>`;
       });
       escaped = escaped.replace(/\[\[profanity:([^\]]+)\]\]/g, () => {
-        return `<span class="badge-profanity" title="Decree 147/2024 Community Standard Filter">PROFANITY: ***</span>`;
+        return `<span class="badge-profanity">PROFANITY: ***</span>`;
       });
       return escaped;
     }
@@ -440,9 +368,9 @@
         document.getElementById('rendered-sanitized-view').innerHTML = formatSanitizedBadges(tp.sanitized_text);
 
         document.getElementById('statutory-counts').innerHTML = `
-          <span class="rounded bg-sky-500/15 px-1.5 py-0.5 text-sky-300">PII: ${tp.counts.pii_masked}</span>
-          <span class="rounded bg-amber-500/15 px-1.5 py-0.5 text-amber-300">Claims: ${tp.counts.claims_neutralized}</span>
-          <span class="rounded bg-rose-500/15 px-1.5 py-0.5 text-rose-300">Profanity: ${tp.counts.profanity_redacted}</span>
+          <span class="rounded-[4px] bg-blue-50 border border-blue-200 px-1.5 py-0.5 text-blue-800">PII: ${tp.counts.pii_masked}</span>
+          <span class="rounded-[4px] bg-amber-50 border border-amber-200 px-1.5 py-0.5 text-amber-800">Claims: ${tp.counts.claims_neutralized}</span>
+          <span class="rounded-[4px] bg-red-50 border border-red-200 px-1.5 py-0.5 text-red-800">Profanity: ${tp.counts.profanity_redacted}</span>
         `;
 
         document.getElementById('pipeline-latency-label').textContent = `${data.total_pipeline_ms} ms`;
@@ -468,9 +396,9 @@
         const btn = document.getElementById(`mode-btn-${m}`);
         if (!btn) return;
         if (m === visualMode) {
-          btn.className = 'rounded px-2.5 py-2 mono text-xs font-semibold bg-sky-500 text-slate-950 transition text-center';
+          btn.className = 'rounded-[4px] px-2.5 py-1.5 space-mono text-xs font-semibold bg-[#1A1C1E] text-white transition text-center';
         } else {
-          btn.className = 'rounded px-2.5 py-2 mono text-xs font-medium text-slate-300 hover:text-white transition text-center';
+          btn.className = 'rounded-[4px] px-2.5 py-1.5 space-mono text-xs font-medium text-[#6C7278] hover:text-[#1A1C1E] bg-white transition text-center';
         }
       });
 
@@ -492,11 +420,11 @@
       }
 
       if (visualMode === 'raw') {
-        bannerEl.innerHTML = `<strong class="text-sky-400">[1. Input]</strong> Original evidence layout with synthetic mock PII overlay preserving visual context with zero real citizen exposure.`;
+        bannerEl.innerHTML = `<strong class="text-[#1A1C1E]">[1. Input]</strong> Original evidence layout with synthetic mock PII overlay preserving visual context with zero real citizen exposure.`;
       } else if (visualMode === 'boxes') {
-        bannerEl.innerHTML = `<strong class="text-amber-300">[2. Translucid Bounding Boxes]</strong> Dual-Pass Gemini VLM emits normalized coordinates (${vp.boxes_applied} box(es)) with strict negative invariant preservation.`;
+        bannerEl.innerHTML = `<strong class="text-[#B8422E]">[2. Bounding Boxes]</strong> Dual-Pass Gemini VLM emits normalized coordinates (${vp.boxes_applied} box(es)) with strict negative invariant preservation.`;
       } else {
-        bannerEl.innerHTML = `<strong class="text-emerald-400">[3. Solid-Black Redacted]</strong> Irreversible <code class="mono">(0, 0, 0)</code> pixel masks burned by deterministic Pillow engine.`;
+        bannerEl.innerHTML = `<strong class="text-emerald-800">[3. Redacted]</strong> Irreversible <code class="font-mono text-[#1A1C1E]">(0, 0, 0)</code> solid-black pixel masks burned by deterministic Pillow engine.`;
       }
 
       document.getElementById('meta-status').textContent = (vp.status || 'clean').toUpperCase();
@@ -528,8 +456,8 @@
           rect.setAttribute('y', ymin);
           rect.setAttribute('width', Math.max(12, xmax - xmin));
           rect.setAttribute('height', Math.max(12, ymax - ymin));
-          rect.setAttribute('fill', 'rgba(56, 189, 248, 0.25)');
-          rect.setAttribute('stroke', '#38bdf8');
+          rect.setAttribute('fill', 'rgba(184, 66, 46, 0.2)');
+          rect.setAttribute('stroke', '#B8422E');
           rect.setAttribute('stroke-width', '3');
           svg.appendChild(rect);
         });
@@ -545,38 +473,6 @@
         executePipeline(true);
       };
       reader.readAsDataURL(file);
-    }
-
-    async function runLiveMcpQuery() {
-      const sel = document.getElementById('mcp-tool-select').value;
-      const outEl = document.getElementById('mcp-response-view');
-      outEl.textContent = 'Querying https://translucid-nmbreovs7a-as.a.run.app/mcp ...';
-
-      let address = 'Ngõ 12 Cầu Giấy, Hà Nội';
-      if (sel === 'phu_do') address = 'Phú Đô, Nam Từ Liêm, Hà Nội';
-      if (sel === 'quan_1') address = '353/2/7 Phạm Ngũ Lão, Quận 1, TP.HCM';
-
-      const payload = {
-        jsonrpc: '2.0',
-        id: Date.now(),
-        method: 'tools/call',
-        params: {
-          name: 'check_address_safety',
-          arguments: { address: address }
-        }
-      };
-
-      try {
-        const res = await fetch('/mcp', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        const data = await res.json();
-        outEl.textContent = JSON.stringify(data, null, 2);
-      } catch (err) {
-        outEl.textContent = 'Error: ' + err.message;
-      }
     }
 
     window.addEventListener('DOMContentLoaded', initApp);
