@@ -1,0 +1,20 @@
+name: Translucid CI & Benchmark Regression
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-and-benchmark:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v4
+      - name: Set up Python 3.12
+        run: uv python install 3.12
+      - name: Install dependencies
+        run: uv pip install --system -e ".[dev]"
+      - name: Run unit and benchmark regression suite
+        run: uv run pytest -v

@@ -1,0 +1,37 @@
+# Translucid Declarative Compliance Policy Profile
+policy_id: vn_decree13_147
+jurisdiction: Vietnam
+statutes:
+  - Decree 13/2023/ND-CP (Personal Data Protection)
+  - Decree 147/2024/ND-CP (Internet Services & Online Information Management)
+  - Penal Code Article 156 (Defamation Defense)
+  - Civil Code Article 328 (Deposit & Civil Contract Dispute Framing)
+
+positive_redaction_targets:
+  visual:
+    - chat_header_name
+    - chat_avatar
+    - phone_number
+    - bank_account_number
+    - citizen_id_cccd
+    - civilian_face
+    - vehicle_license_plate
+  text:
+    - ten_digit_phone_number
+    - personal_landlord_or_manager_name
+    - unadjudicated_criminal_accusation
+    - ad_hominem_profanity
+
+negative_invariants:
+  - dispute_chat_message_body
+  - utility_tariff_rate_kwh_m3
+  - deposit_deduction_amount_vnd
+  - physical_room_defect_damage
+  - commercial_operator_brand_name
+  - appliance_marketing_or_warranty_sticker
+
+masking_parameters:
+  pixel_rgb: [0, 0, 0]
+  padding_px: 5
+  additive_residual_pass: true
+  max_residual_retries: 1
