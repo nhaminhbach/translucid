@@ -61,19 +61,11 @@
   <!-- Top Navigation -->
   <header class="sticky top-0 z-40 border-b border-[#E2E8F0] bg-white">
     <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-      <div class="flex items-center gap-3">
-        <div class="flex h-8 w-8 items-center justify-center rounded-[4px] bg-[#1A1C1E] space-mono text-xs font-bold text-white">
-          TL
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="text-base font-bold tracking-tight text-[#1A1C1E]">TRANSLUCID</span>
-          <span class="rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] px-1.5 py-0.5 space-mono text-[11px] text-[#6C7278]">
-            v0.1.0
-          </span>
-          <span id="engine-status-pill" class="rounded-full bg-emerald-50 border border-emerald-200 px-2 py-0.5 space-mono text-[11px] text-emerald-800">
-            Google Cloud Run Ready
-          </span>
-        </div>
+      <div class="flex items-center gap-2">
+        <span class="text-base font-bold tracking-tight text-[#1A1C1E]">TRANSLUCID</span>
+        <span class="rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] px-1.5 py-0.5 space-mono text-[11px] text-[#6C7278]">
+          v0.1.0
+        </span>
       </div>
 
       <div class="flex items-center gap-2">
@@ -81,160 +73,192 @@
            class="rounded-[4px] border border-[#E2E8F0] bg-white px-3 py-1.5 text-xs font-medium text-[#1A1C1E] hover:border-[#6C7278] transition">
           GitHub Repo
         </a>
-        <a href="https://nhaminhbach.com" target="_blank" rel="noopener"
-           class="rounded-[4px] bg-[#B8422E] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#A23522] transition">
-          Customer #1
-        </a>
       </div>
     </div>
   </header>
 
-  <main class="mx-auto max-w-7xl px-4 py-6 sm:px-6 space-y-6">
+  <main class="mx-auto max-w-7xl px-4 py-6 sm:px-6 space-y-10">
 
-    <!-- Workbench Header -->
-    <section class="space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div>
-          <div class="space-mono text-xs font-semibold uppercase text-[#B8422E]">
-            Selective Redaction Sandbox
-          </div>
-          <h1 class="text-xl sm:text-2xl font-bold text-[#1A1C1E] tracking-tight">
-            Translucid Verification Workbench
-          </h1>
-        </div>
+    <input type="hidden" id="policy-select" value="vn_decree13_147" />
 
-        <div class="flex items-center gap-2">
-          <span class="rounded-full border border-[#E2E8F0] bg-white px-3 py-1 space-mono text-xs text-[#6C7278]">
-            Statutory Policy: Vietnam Decree 13/147 &amp; Civil Code 328
-          </span>
-          <input type="hidden" id="policy-select" value="vn_decree13_147" />
-        </div>
+    <!-- SECTION 1: TEXT SANITIZATION PIPELINE -->
+    <section id="text-pipeline-section" class="space-y-4">
+      <div>
+        <h2 class="text-xl sm:text-2xl font-bold text-[#1A1C1E] tracking-tight">
+          Text Sanitization Pipeline
+        </h2>
       </div>
 
-      <!-- Curated Case Study Tabs (Exactly 3 High-Contrast Use Cases) -->
-      <div id="case-tabs" class="grid grid-cols-1 gap-3 sm:grid-cols-3"></div>
+      <!-- Curated Text Cases -->
+      <div id="text-case-tabs" class="grid grid-cols-1 gap-3 sm:grid-cols-3"></div>
 
-      <!-- Main Split-Pane Inspector -->
-      <div class="grid grid-cols-1 gap-6 lg:grid-cols-12">
+      <!-- Text Pipeline Workbench Card -->
+      <div class="rounded-[8px] border border-[#E2E8F0] bg-white p-5 sm:p-6 space-y-4">
 
-        <!-- LEFT COLUMN: Input Review, Pre-Inference Tokens & Public Record -->
-        <div class="lg:col-span-5 flex flex-col gap-4 rounded-[8px] border border-[#E2E8F0] bg-white p-5">
-          <div class="flex items-center justify-between pb-3 border-b border-[#E2E8F0]">
-            <div>
-              <span class="space-mono text-xs font-semibold text-[#6C7278]">TEXT PIPELINE</span>
-              <h2 class="text-sm font-semibold text-[#1A1C1E]">Whistleblower Review Sanitizer</h2>
+        <!-- Top Bar: Active Title + Processing Badge + Run Live Button -->
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#E2E8F0]">
+          <div>
+            <span class="space-mono text-xs font-semibold text-[#6C7278]">ACTIVE TEXT</span>
+            <div class="flex items-center gap-2 mt-0.5">
+              <h3 id="active-text-title" class="text-sm font-semibold text-[#1A1C1E]">Case T1: Deposit Dispute &amp; Allegation</h3>
+              <span id="text-custom-badge" class="hidden rounded-[4px] bg-amber-50 border border-amber-300 px-2 py-0.5 space-mono text-[10px] text-amber-800 font-semibold uppercase">
+                Custom Input
+              </span>
             </div>
-            <button id="run-live-btn" onclick="executePipeline(true)"
-                    class="rounded-[4px] bg-[#B8422E] px-3 py-1.5 space-mono text-xs font-semibold text-white hover:bg-[#A23522] transition">
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span id="text-status-badge" class="rounded-[4px] bg-[#F7F5F2] border border-[#E2E8F0] px-2.5 py-1 space-mono text-[11px] text-[#6C7278]">
+              Ready
+            </span>
+            <button id="run-text-btn" onclick="executeTextPipeline(true)"
+                    class="rounded-[4px] bg-[#B8422E] px-4 py-1.5 space-mono text-xs font-semibold text-white hover:bg-[#A23522] transition">
               Run Live Pipeline
             </button>
           </div>
+        </div>
 
-          <!-- Input Review (Editable) -->
-          <div>
-            <div class="flex items-center justify-between mb-1">
-              <label class="block space-mono text-[11px] font-semibold text-[#6C7278]">
-                INPUT REVIEW (EDITABLE)
-              </label>
-              <span id="pipeline-latency-label" class="space-mono text-[11px] text-[#6C7278]">0.0 ms</span>
-            </div>
-            <textarea id="raw-text-input" rows="4" oninput="executePipeline(false)"
+        <!-- 3-Mode State Selector Bar (Broken down into 3 states) -->
+        <div class="grid grid-cols-3 gap-2 rounded-[4px] bg-[#F7F5F2] p-1 border border-[#E2E8F0]">
+          <button id="text-mode-btn-raw" onclick="setTextMode('raw')"
+                  class="rounded-[4px] px-2.5 py-1.5 space-mono text-xs font-medium transition text-center">
+            1. Input (Editable)
+          </button>
+          <button id="text-mode-btn-vault" onclick="setTextMode('vault')"
+                  class="rounded-[4px] px-2.5 py-1.5 space-mono text-xs font-medium transition text-center">
+            2. Regex Quarantines
+          </button>
+          <button id="text-mode-btn-sanitized" onclick="setTextMode('sanitized')"
+                  class="rounded-[4px] px-2.5 py-1.5 space-mono text-xs font-medium transition text-center">
+            3. Sanitized Record
+          </button>
+        </div>
+
+        <!-- Diagnostic Banner for Text Pipeline -->
+        <div id="text-diagnostic-banner" class="rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] px-3.5 py-2 text-xs text-[#6C7278]"></div>
+
+        <!-- Interactive Viewport (Switching between the 3 states) -->
+        <div class="min-h-[220px]">
+          <!-- State 1: Raw Input (Editable) -->
+          <div id="text-view-raw" class="space-y-2">
+            <textarea id="raw-text-input" rows="7" oninput="handleTextInputChange()"
                       class="w-full rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] p-3 text-xs text-[#1A1C1E] focus:border-[#B8422E] focus:bg-white focus:outline-none leading-relaxed transition"></textarea>
-          </div>
-
-          <!-- Quarantined Tokens (Gate 1 Local Token Vault) -->
-          <div class="rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] p-3">
-            <div class="flex items-center justify-between">
-              <span class="space-mono text-[11px] font-semibold text-[#B8422E]">GATE 1 PRE-INFERENCE VAULT</span>
-              <span id="vault-count-badge" class="space-mono text-[11px] text-[#6C7278]">0 tokens</span>
+            <div class="flex items-center justify-between text-[11px] text-[#6C7278] space-mono">
+              <span>Edit text freely to test custom phone numbers, bank accounts, or dispute claims.</span>
+              <span id="text-char-count">0 chars</span>
             </div>
-            <p id="quarantined-text-view" class="mt-1.5 font-mono text-xs text-[#1A1C1E] break-words leading-relaxed"></p>
           </div>
 
-          <!-- Public Copy (Sanitized Statutory Badges) -->
-          <div class="rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] p-3 flex-1 flex flex-col justify-between">
-            <div>
+          <!-- State 2: Regex Quarantines -->
+          <div id="text-view-vault" class="hidden space-y-3">
+            <div class="rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] p-3">
               <div class="flex items-center justify-between mb-1.5">
-                <span class="space-mono text-[11px] font-semibold text-emerald-800">PUBLIC COPY (STATUTORY PROJECTION)</span>
+                <span class="space-mono text-[11px] font-semibold text-[#B8422E]">QUARANTINED STRING</span>
+                <span id="vault-count-badge" class="rounded-[4px] bg-blue-50 border border-blue-200 px-1.5 py-0.5 text-blue-800 space-mono text-[10px] font-semibold">0 PII token(s)</span>
+              </div>
+              <p id="quarantined-text-view" class="font-mono text-xs text-[#1A1C1E] break-words leading-relaxed"></p>
+            </div>
+            <div class="rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] p-3">
+              <span class="space-mono text-[11px] font-semibold text-[#6C7278]">Pre-inference regex quarantines phone numbers and identifiers</span>
+              <div id="token-registry-list" class="mt-2 flex flex-wrap gap-2 text-xs"></div>
+            </div>
+          </div>
+
+          <!-- State 3: Sanitized Record -->
+          <div id="text-view-sanitized" class="hidden rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] p-4 min-h-[190px] flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-end mb-2 pb-2 border-b border-[#E2E8F0]">
                 <div id="statutory-counts" class="flex gap-1.5 space-mono text-[10px]"></div>
               </div>
               <div id="rendered-sanitized-view" class="text-xs text-[#1A1C1E] leading-relaxed"></div>
             </div>
-            <div class="pt-3 mt-3 border-t border-[#E2E8F0] flex items-center justify-between space-mono text-[11px] text-[#6C7278]">
-              <span>Customer #1 Verified Record</span>
-              <a href="https://nhaminhbach.com" target="_blank" rel="noopener" class="text-[#B8422E] font-medium hover:underline">
-                nhaminhbach.com &rarr;
-              </a>
-            </div>
           </div>
         </div>
 
-        <!-- RIGHT COLUMN: Visual Redaction Canvas & 3-Mode Streamlined Inspector -->
-        <div class="lg:col-span-7 flex flex-col gap-4 rounded-[8px] border border-[#E2E8F0] bg-white p-5">
-          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-[#E2E8F0]">
-            <div>
-              <span class="space-mono text-xs font-semibold text-[#6C7278]">VISUAL REDACTION PIPELINE</span>
-              <h2 id="active-asset-title" class="text-sm font-semibold text-[#1A1C1E]">Asset: yMOa_0.webp</h2>
-            </div>
+      </div>
+    </section>
 
-            <!-- Custom Image Upload + Live VLM Trigger -->
-            <div class="flex items-center gap-2">
-              <label class="cursor-pointer rounded-[4px] border border-[#E2E8F0] bg-white px-2.5 py-1.5 space-mono text-xs text-[#1A1C1E] hover:border-[#6C7278] transition">
-                Upload Custom Image
-                <input type="file" id="custom-image-input" accept="image/*" class="hidden" onchange="handleCustomImageUpload(event)" />
-              </label>
-              <button onclick="executePipeline(true)"
-                      class="rounded-[4px] bg-[#B8422E] px-3 py-1.5 space-mono text-xs font-semibold text-white hover:bg-[#A23522] transition">
-                Run Live VLM Pass 1+2
-              </button>
+    <!-- SECTION 2: VISUAL REDACTION PIPELINE -->
+    <section id="visual-pipeline-section" class="space-y-4 pt-2">
+      <div>
+        <h2 class="text-xl sm:text-2xl font-bold text-[#1A1C1E] tracking-tight">
+          Visual Redaction Pipeline
+        </h2>
+      </div>
+
+      <!-- Curated Visual Cases -->
+      <div id="visual-case-tabs" class="grid grid-cols-1 gap-3 sm:grid-cols-3"></div>
+
+      <!-- Visual Pipeline Workbench Card -->
+      <div class="rounded-[8px] border border-[#E2E8F0] bg-white p-5 sm:p-6 space-y-4">
+
+        <!-- Top Bar: Active Title + Processing Badge + Upload & Run Buttons -->
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#E2E8F0]">
+          <div>
+            <span class="space-mono text-xs font-semibold text-[#6C7278]">ACTIVE ASSET</span>
+            <div class="flex items-center gap-2 mt-0.5">
+              <h3 id="active-asset-title" class="text-sm font-semibold text-[#1A1C1E]">Case V1: Lease Contract Clause</h3>
+              <span id="visual-custom-badge" class="hidden rounded-[4px] bg-amber-50 border border-amber-300 px-2 py-0.5 space-mono text-[10px] text-amber-800 font-semibold uppercase">
+                Custom Media
+              </span>
             </div>
           </div>
 
-          <!-- 3-Mode Visual Comparison Bar -->
-          <div class="grid grid-cols-3 gap-2 rounded-[4px] bg-[#F7F5F2] p-1 border border-[#E2E8F0]">
-            <button id="mode-btn-raw" onclick="setVisualMode('raw')"
-                    class="rounded-[4px] px-2.5 py-1.5 space-mono text-xs font-medium transition text-center">
-              1. Input
-            </button>
-            <button id="mode-btn-boxes" onclick="setVisualMode('boxes')"
-                    class="rounded-[4px] px-2.5 py-1.5 space-mono text-xs font-medium transition text-center">
-              2. Bounding Boxes
-            </button>
-            <button id="mode-btn-gt" onclick="setVisualMode('gt')"
-                    class="rounded-[4px] px-2.5 py-1.5 space-mono text-xs font-medium transition text-center">
-              3. Redacted
+          <div class="flex items-center gap-2">
+            <span id="visual-status-badge" class="rounded-[4px] bg-[#F7F5F2] border border-[#E2E8F0] px-2.5 py-1 space-mono text-[11px] text-[#6C7278]">
+              Ready
+            </span>
+            <label class="cursor-pointer rounded-[4px] border border-[#E2E8F0] bg-white px-3 py-1.5 space-mono text-xs text-[#1A1C1E] hover:border-[#6C7278] transition">
+              Upload Custom Image
+              <input type="file" id="custom-image-input" accept="image/*" class="hidden" onchange="handleCustomImageUpload(event)" />
+            </label>
+            <button id="run-vlm-btn" onclick="executeVisualPipeline(true)"
+                    class="rounded-[4px] bg-[#B8422E] px-4 py-1.5 space-mono text-xs font-semibold text-white hover:bg-[#A23522] transition">
+              Run Live VLM Pass 1+2
             </button>
           </div>
+        </div>
 
-          <!-- Diagnostic Banner -->
-          <div id="visual-diagnostic-banner" class="rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] px-3 py-2 text-xs text-[#6C7278]"></div>
+        <!-- 3-Mode Visual Comparison Bar -->
+        <div class="grid grid-cols-3 gap-2 rounded-[4px] bg-[#F7F5F2] p-1 border border-[#E2E8F0]">
+          <button id="mode-btn-raw" onclick="setVisualMode('raw')"
+                  class="rounded-[4px] px-2.5 py-1.5 space-mono text-xs font-medium transition text-center">
+            1. Input
+          </button>
+          <button id="mode-btn-boxes" onclick="setVisualMode('boxes')"
+                  class="rounded-[4px] px-2.5 py-1.5 space-mono text-xs font-medium transition text-center">
+            2. Bounding Boxes
+          </button>
+          <button id="mode-btn-gt" onclick="setVisualMode('gt')"
+                  class="rounded-[4px] px-2.5 py-1.5 space-mono text-xs font-medium transition text-center">
+            3. Redacted
+          </button>
+        </div>
 
-          <!-- Interactive Image + SVG Overlay Viewport -->
-          <div class="relative flex items-center justify-center rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] overflow-hidden min-h-[360px] max-h-[480px]">
-            <div class="relative inline-block max-h-[460px]">
+        <!-- Diagnostic Banner -->
+        <div id="visual-diagnostic-banner" class="rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] px-3.5 py-2 text-xs text-[#6C7278]"></div>
+
+        <!-- Interactive Image + SVG Overlay Viewport -->
+        <div class="rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] overflow-hidden">
+          <div class="flex items-center justify-end px-3.5 py-2 border-b border-[#E2E8F0]">
+            <div id="visual-counts" class="flex gap-1.5 space-mono text-[10px]">
+              <span id="visual-badge-decision" class="rounded-[4px] bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 text-emerald-800 font-semibold uppercase">DECISION: CLEAN</span>
+              <span id="visual-badge-boxes" class="rounded-[4px] bg-blue-50 border border-blue-200 px-1.5 py-0.5 text-blue-800 font-semibold uppercase">MASKED BOXES: 0</span>
+            </div>
+          </div>
+          <div class="relative flex items-center justify-center min-h-[380px] max-h-[500px]">
+            <!-- Visual Processing Overlay for Custom Media / Live Execution -->
+            <div id="visual-processing-overlay" class="hidden absolute inset-0 bg-white/85 z-20 flex flex-col items-center justify-center gap-2.5 backdrop-blur-[1px]">
+              <div class="w-6 h-6 border-2 border-[#B8422E] border-t-transparent rounded-full animate-spin"></div>
+              <span id="visual-overlay-label" class="space-mono text-xs font-semibold text-[#1A1C1E]">
+                Processing Custom Media with Dual-Pass Gemini VLM...
+              </span>
+            </div>
+
+            <div class="relative inline-block max-h-[480px]">
               <img id="inspector-image" src="/assets/ground_truth/yMOa_0.webp" alt="Dispute Evidence Asset"
-                   class="max-h-[440px] w-auto object-contain block select-none" onload="renderBoundingBoxes()" />
+                   class="max-h-[460px] w-auto object-contain block select-none" onload="renderBoundingBoxes()" />
               <svg id="bbox-overlay-svg" class="pointer-events-none absolute inset-0 h-full w-full"></svg>
-            </div>
-          </div>
-
-          <!-- Telemetry Footer for Active Asset -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
-            <div class="rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] px-3 py-2">
-              <div class="space-mono text-[10px] text-[#6C7278]">DECISION</div>
-              <div id="meta-status" class="space-mono text-xs font-bold text-[#1A1C1E] mt-0.5">CLEAN</div>
-            </div>
-            <div class="rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] px-3 py-2">
-              <div class="space-mono text-[10px] text-[#6C7278]">MASKED BOXES</div>
-              <div id="meta-boxes" class="space-mono text-xs font-bold text-[#B8422E] mt-0.5">0 boxes</div>
-            </div>
-            <div class="rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] px-3 py-2">
-              <div class="space-mono text-[10px] text-[#6C7278]">VLM LATENCY</div>
-              <div id="meta-latency" class="space-mono text-xs font-bold text-emerald-800 mt-0.5">4,666 ms</div>
-            </div>
-            <div class="rounded-[4px] border border-[#E2E8F0] bg-[#F7F5F2] px-3 py-2">
-              <div class="space-mono text-[10px] text-[#6C7278]">NEGATIVE INVARIANT</div>
-              <div id="meta-invariants" class="space-mono text-xs font-bold text-[#1A1C1E] mt-0.5 truncate">Contract terms intact</div>
             </div>
           </div>
         </div>
@@ -244,50 +268,51 @@
 
   </main>
 
-  <footer class="border-t border-[#E2E8F0] bg-white py-5 mt-10">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#6C7278]">
+  <footer class="border-t border-[#E2E8F0] bg-white py-5 mt-12">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 flex items-center justify-between text-xs text-[#6C7278]">
       <div>
         <strong class="text-[#1A1C1E]">Translucid</strong> — Open-Source Zero-Trust Selective Transparency Engine (Apache-2.0)
-      </div>
-      <div class="space-mono text-[11px]">
-        System of Record: nhaminhbach.com | Hosted on Google Cloud Run
       </div>
     </div>
   </footer>
 
   <script>
     let benchmarkData = null;
-    let activeCase = null;
-    let activeAsset = null;
+    let activeTextCaseIdx = 0;
+    let activeVisualCaseIdx = 0;
+    let isCustomText = false;
+    let isCustomMedia = false;
+
+    let textMode = 'raw'; // 'raw' | 'vault' | 'sanitized'
     let visualMode = 'boxes'; // 'raw' | 'boxes' | 'gt'
-    let lastPipelineResponse = null;
+
+    let lastTextResponse = null;
+    let lastVisualResponse = null;
     let customImageBase64 = null;
+    let textDebounceTimer = null;
 
     async function initApp() {
       const res = await fetch('/api/benchmark');
       benchmarkData = await res.json();
 
-      const statusPill = document.getElementById('engine-status-pill');
-      if (benchmarkData.live_gemini_configured) {
-        statusPill.textContent = 'Live Gemini 3.5 Flash Lite Active';
-      } else {
-        statusPill.textContent = 'Google Cloud Run Ready';
-      }
+      renderTextCaseTabs();
+      renderVisualCaseTabs();
 
-      renderCaseTabs();
-
-      if (benchmarkData.curated_cases && benchmarkData.curated_cases.length > 0) {
-        selectCuratedCase(0);
-      }
+      selectTextCase(0);
+      selectVisualCase(0);
     }
 
-    function renderCaseTabs() {
-      const container = document.getElementById('case-tabs');
+    // ==========================================
+    // SECTION 1: TEXT SANITIZATION PIPELINE
+    // ==========================================
+    function renderTextCaseTabs() {
+      const container = document.getElementById('text-case-tabs');
       container.innerHTML = '';
-      benchmarkData.curated_cases.forEach((c, idx) => {
+      const cases = benchmarkData.text_cases || [];
+      cases.forEach((c, idx) => {
         const btn = document.createElement('button');
-        btn.id = `case-tab-${idx}`;
-        btn.onclick = () => selectCuratedCase(idx);
+        btn.id = `text-case-tab-${idx}`;
+        btn.onclick = () => selectTextCase(idx);
         btn.className = 'text-left rounded-[8px] border p-3 transition bg-white ';
         btn.innerHTML = `
           <div class="space-mono text-xs font-bold text-[#1A1C1E] truncate">${c.title}</div>
@@ -297,11 +322,15 @@
       });
     }
 
-    function selectCuratedCase(idx) {
-      customImageBase64 = null;
-      activeCase = benchmarkData.curated_cases[idx];
-      benchmarkData.curated_cases.forEach((_, i) => {
-        const el = document.getElementById(`case-tab-${i}`);
+    function selectTextCase(idx) {
+      isCustomText = false;
+      activeTextCaseIdx = idx;
+      document.getElementById('text-custom-badge').classList.add('hidden');
+
+      const cases = benchmarkData.text_cases || [];
+      cases.forEach((_, i) => {
+        const el = document.getElementById(`text-case-tab-${i}`);
+        if (!el) return;
         if (i === idx) {
           el.className = 'text-left rounded-[8px] border-2 border-[#B8422E] bg-white p-3 transition';
         } else {
@@ -309,9 +338,154 @@
         }
       });
 
-      document.getElementById('raw-text-input').value = activeCase.raw_text;
-      activeAsset = benchmarkData.assets.find(a => a.filename === activeCase.filename) || benchmarkData.assets[0];
-      executePipeline(false);
+      const selected = cases[idx];
+      if (selected) {
+        document.getElementById('active-text-title').textContent = selected.title;
+        document.getElementById('raw-text-input').value = selected.raw_text;
+        executeTextPipeline(false);
+      }
+    }
+
+    function handleTextInputChange() {
+      const val = document.getElementById('raw-text-input').value;
+      document.getElementById('text-char-count').textContent = `${val.length} chars`;
+
+      const currentCase = (benchmarkData.text_cases || [])[activeTextCaseIdx];
+      if (!currentCase || val.trim() !== currentCase.raw_text.trim()) {
+        isCustomText = true;
+        document.getElementById('text-custom-badge').classList.remove('hidden');
+        document.getElementById('active-text-title').textContent = 'Custom User Complaint';
+        // Clear active tab border
+        (benchmarkData.text_cases || []).forEach((_, i) => {
+          const el = document.getElementById(`text-case-tab-${i}`);
+          if (el) el.className = 'text-left rounded-[8px] border border-[#E2E8F0] bg-white hover:border-[#6C7278] p-3 transition';
+        });
+      }
+
+      // 2-Phase UX: Phase 1 (Input / Modify) — Do NOT auto-execute or flash premature processing
+      const badge = document.getElementById('text-status-badge');
+      badge.className = 'rounded-[4px] bg-[#F7F5F2] border border-[#E2E8F0] px-2.5 py-1 space-mono text-[11px] text-[#6C7278]';
+      badge.textContent = 'Draft Modified (Click "Run Live Pipeline")';
+    }
+
+    function setTextMode(mode) {
+      textMode = mode;
+      updateTextInspector();
+    }
+
+    function updateTextInspector() {
+      const modes = ['raw', 'vault', 'sanitized'];
+      modes.forEach(m => {
+        const btn = document.getElementById(`text-mode-btn-${m}`);
+        if (!btn) return;
+        if (m === textMode) {
+          btn.className = 'rounded-[4px] px-2.5 py-1.5 space-mono text-xs font-semibold bg-[#1A1C1E] text-white transition text-center';
+        } else {
+          btn.className = 'rounded-[4px] px-2.5 py-1.5 space-mono text-xs font-medium text-[#6C7278] hover:text-[#1A1C1E] bg-white transition text-center';
+        }
+
+        const viewEl = document.getElementById(`text-view-${m}`);
+        if (viewEl) {
+          if (m === textMode) {
+            viewEl.classList.remove('hidden');
+          } else {
+            viewEl.classList.add('hidden');
+          }
+        }
+      });
+
+      const banner = document.getElementById('text-diagnostic-banner');
+      if (textMode === 'raw') {
+        banner.innerHTML = `<strong class="text-[#1A1C1E]">[1. Input (Editable)]</strong> Whistleblower complaint text. Modify freely, then click <strong class="text-[#B8422E]">"Run Live Pipeline"</strong>.`;
+      } else if (textMode === 'vault') {
+        banner.innerHTML = `<strong class="text-[#B8422E]">[2. Regex Quarantines]</strong> Pre-inference regex quarantines phone numbers and identifiers.`;
+      } else {
+        banner.innerHTML = `<strong class="text-emerald-800">[3. Sanitized Record]</strong> Statutory projection neutralizes unadjudicated defamation accusations into Civil Code Art 328 dispute tags.`;
+      }
+    }
+
+    async function executeTextPipeline(runLive = false) {
+      const rawText = document.getElementById('raw-text-input').value;
+      const btn = document.getElementById('run-text-btn');
+      const badge = document.getElementById('text-status-badge');
+
+      if (runLive) {
+        btn.textContent = 'Running Gemini...';
+        btn.disabled = true;
+        badge.className = 'rounded-[4px] bg-sky-50 border border-sky-300 px-2.5 py-1 space-mono text-[11px] text-sky-800 font-medium animate-pulse';
+        badge.textContent = 'Processing Live Pipeline...';
+      }
+
+      try {
+        const payload = {
+          text: rawText,
+          policy_id: 'vn_decree13_147',
+          asset_filename: '4Z1w_0.webp',
+          run_live_vlm: runLive
+        };
+
+        const res = await fetch('/api/redact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          throw new Error(`API returned HTTP ${res.status}`);
+        }
+
+        const data = await res.json();
+        lastTextResponse = data;
+        const tp = data.text_pipeline;
+
+        const vaultKeys = Object.keys(tp.token_vault || {});
+        document.getElementById('vault-count-badge').textContent = `${vaultKeys.length} PII token(s)`;
+        document.getElementById('quarantined-text-view').textContent = tp.quarantined_text || '(Empty)';
+        document.getElementById('rendered-sanitized-view').innerHTML = formatSanitizedBadges(tp.sanitized_text);
+
+        // Render token registry list
+        const regList = document.getElementById('token-registry-list');
+        regList.innerHTML = '';
+        if (vaultKeys.length === 0) {
+          regList.innerHTML = `<span class="text-xs text-[#6C7278] font-mono">No sensitive PII tokens identified (clean text).</span>`;
+        } else {
+          vaultKeys.forEach(k => {
+            const chip = document.createElement('div');
+            chip.className = 'rounded-[4px] border border-[#E2E8F0] bg-white px-2 py-1 space-mono text-[11px] text-[#1A1C1E] flex items-center gap-1.5';
+            chip.innerHTML = `<strong class="text-[#B8422E]">${k}</strong> &rarr; <span class="font-mono text-[#6C7278]">${tp.token_vault[k]}</span>`;
+            regList.appendChild(chip);
+          });
+        }
+
+        document.getElementById('statutory-counts').innerHTML = `
+          <span class="rounded-[4px] bg-blue-50 border border-blue-200 px-1.5 py-0.5 text-blue-800">PII: ${tp.counts.pii_masked}</span>
+          <span class="rounded-[4px] bg-amber-50 border border-amber-200 px-1.5 py-0.5 text-amber-800">Claims: ${tp.counts.claims_neutralized}</span>
+          <span class="rounded-[4px] bg-red-50 border border-red-200 px-1.5 py-0.5 text-red-800">Profanity: ${tp.counts.profanity_redacted}</span>
+        `;
+
+        document.getElementById('text-char-count').textContent = `${rawText.length} chars`;
+
+        badge.className = 'rounded-[4px] bg-emerald-50 border border-emerald-200 px-2.5 py-1 space-mono text-[11px] text-emerald-800 font-medium';
+        badge.textContent = isCustomText
+          ? `Custom Processed (${data.total_pipeline_ms} ms)`
+          : `Processed (${data.total_pipeline_ms} ms)`;
+
+        if (runLive) {
+          // Switch to sanitized record view to show result immediately
+          setTextMode('sanitized');
+        } else {
+          updateTextInspector();
+        }
+      } catch (err) {
+        console.error('Text pipeline error:', err);
+        badge.className = 'rounded-[4px] bg-red-50 border border-red-200 px-2.5 py-1 space-mono text-[11px] text-red-800 font-medium';
+        badge.textContent = 'Error processing text';
+      } finally {
+        if (runLive) {
+          btn.textContent = 'Run Live Pipeline';
+          btn.disabled = false;
+        }
+      }
     }
 
     function formatSanitizedBadges(sanitizedText) {
@@ -333,23 +507,149 @@
       return escaped;
     }
 
-    async function executePipeline(runLiveVlm = false) {
-      const rawText = document.getElementById('raw-text-input').value;
-      const policyId = document.getElementById('policy-select').value;
-      const runBtn = document.getElementById('run-live-btn');
+    // ==========================================
+    // SECTION 2: VISUAL REDACTION PIPELINE
+    // ==========================================
+    function updateVisualCounts(decision, boxesCount) {
+      const decEl = document.getElementById('visual-badge-decision');
+      const boxEl = document.getElementById('visual-badge-boxes');
+      if (decEl) {
+        const s = (decision || 'clean').toUpperCase();
+        decEl.textContent = `DECISION: ${s}`;
+        if (s === 'CLEAN') {
+          decEl.className = 'rounded-[4px] bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 text-emerald-800 font-semibold uppercase';
+        } else if (s === 'PROCESSING' || s === 'PENDING') {
+          decEl.className = 'rounded-[4px] bg-sky-50 border border-sky-200 px-1.5 py-0.5 text-sky-800 font-semibold uppercase';
+        } else {
+          decEl.className = 'rounded-[4px] bg-amber-50 border border-amber-200 px-1.5 py-0.5 text-amber-800 font-semibold uppercase';
+        }
+      }
+      if (boxEl) {
+        boxEl.textContent = `MASKED BOXES: ${boxesCount || 0}`;
+        boxEl.className = 'rounded-[4px] bg-blue-50 border border-blue-200 px-1.5 py-0.5 text-blue-800 font-semibold uppercase';
+      }
+    }
+
+    function renderVisualCaseTabs() {
+      const container = document.getElementById('visual-case-tabs');
+      container.innerHTML = '';
+      const cases = benchmarkData.visual_cases || benchmarkData.curated_cases || [];
+      cases.forEach((c, idx) => {
+        const btn = document.createElement('button');
+        btn.id = `visual-case-tab-${idx}`;
+        btn.onclick = () => selectVisualCase(idx);
+        btn.className = 'text-left rounded-[8px] border p-3 transition bg-white ';
+        btn.innerHTML = `
+          <div class="space-mono text-xs font-bold text-[#1A1C1E] truncate">${c.title}</div>
+          <div class="mt-1 text-xs text-[#6C7278] line-clamp-2">${c.subtitle}</div>
+        `;
+        container.appendChild(btn);
+      });
+    }
+
+    function selectVisualCase(idx) {
+      isCustomMedia = false;
+      customImageBase64 = null;
+      activeVisualCaseIdx = idx;
+      const fileInput = document.getElementById('custom-image-input');
+      if (fileInput) fileInput.value = '';
+      document.getElementById('visual-custom-badge').classList.add('hidden');
+      document.getElementById('bbox-overlay-svg').innerHTML = '';
+
+      const cases = benchmarkData.visual_cases || benchmarkData.curated_cases || [];
+      cases.forEach((_, i) => {
+        const el = document.getElementById(`visual-case-tab-${i}`);
+        if (!el) return;
+        if (i === idx) {
+          el.className = 'text-left rounded-[8px] border-2 border-[#B8422E] bg-white p-3 transition';
+        } else {
+          el.className = 'text-left rounded-[8px] border border-[#E2E8F0] bg-white hover:border-[#6C7278] p-3 transition';
+        }
+      });
+
+      const selected = cases[idx];
+      activeAsset = benchmarkData.assets.find(a => a.filename === selected.filename) || benchmarkData.assets[0];
+      document.getElementById('active-asset-title').textContent = selected.title;
+
+      // Immediately preview selected case asset to prevent media lag
+      const imgEl = document.getElementById('inspector-image');
+      const fname = activeAsset ? activeAsset.filename : selected.filename;
+      imgEl.src = (visualMode === 'gt') ? `/assets/ground_truth/${fname}` : `/assets/raw/${fname}`;
+
+      const badge = document.getElementById('visual-status-badge');
+      badge.className = 'rounded-[4px] bg-[#F7F5F2] border border-[#E2E8F0] px-2.5 py-1 space-mono text-[11px] text-[#6C7278]';
+      badge.textContent = 'Ready';
+
+      updateVisualCounts('CLEAN', 0);
+      executeVisualPipeline(false);
+    }
+
+    function handleCustomImageUpload(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      isCustomMedia = true;
+      document.getElementById('visual-custom-badge').classList.remove('hidden');
+      document.getElementById('active-asset-title').textContent = `Custom Evidence: ${file.name}`;
+
+      // Deselect visual case tabs
+      (benchmarkData.visual_cases || benchmarkData.curated_cases || []).forEach((_, i) => {
+        const el = document.getElementById(`visual-case-tab-${i}`);
+        if (el) el.className = 'text-left rounded-[8px] border border-[#E2E8F0] bg-white hover:border-[#6C7278] p-3 transition';
+      });
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        customImageBase64 = evt.target.result;
+        lastVisualResponse = null;
+
+        // Preview uploaded image immediately in viewport
+        const imgEl = document.getElementById('inspector-image');
+        imgEl.src = customImageBase64;
+
+        // Clear SVG bounding boxes overlay
+        document.getElementById('bbox-overlay-svg').innerHTML = '';
+
+        // Switch to mode 1 (Input / Raw)
+        setVisualMode('raw');
+
+        // Set status badge to indicate upload complete and ready to run
+        const badge = document.getElementById('visual-status-badge');
+        badge.className = 'rounded-[4px] bg-[#F7F5F2] border border-[#E2E8F0] px-2.5 py-1 space-mono text-[11px] text-[#6C7278]';
+        badge.textContent = 'Image Uploaded (Click "Run Live VLM Pass 1+2")';
+
+        updateVisualCounts('PENDING', 0);
+
+        // Ensure overlay is hidden
+        document.getElementById('visual-processing-overlay').classList.add('hidden');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function executeVisualPipeline(runLiveVlm = false) {
+      const btn = document.getElementById('run-vlm-btn');
+      const badge = document.getElementById('visual-status-badge');
+      const overlay = document.getElementById('visual-processing-overlay');
 
       if (runLiveVlm) {
-        runBtn.textContent = 'Running Gemini...';
-        runBtn.disabled = true;
+        btn.textContent = 'Running Gemini VLM...';
+        btn.disabled = true;
+        badge.className = 'rounded-[4px] bg-sky-50 border border-sky-300 px-2.5 py-1 space-mono text-[11px] text-sky-800 font-medium animate-pulse';
+        badge.textContent = isCustomMedia ? 'Processing Custom Media...' : 'Running Dual-Pass VLM...';
+        document.getElementById('visual-overlay-label').textContent = isCustomMedia
+          ? 'Processing Custom Media with Dual-Pass Gemini VLM...'
+          : 'Running Dual-Pass Gemini VLM (Pass 1 Detect + Pass 2 Audit)...';
+        updateVisualCounts('PROCESSING', 0);
+        overlay.classList.remove('hidden');
       }
 
       try {
         const payload = {
-          text: rawText,
-          policy_id: policyId,
+          text: '',
+          policy_id: 'vn_decree13_147',
           asset_filename: activeAsset ? activeAsset.filename : 'yMOa_0.webp',
           image_base64: customImageBase64,
-          run_live_vlm: runLiveVlm
+          run_live_vlm: runLiveVlm || Boolean(customImageBase64)
         };
 
         const res = await fetch('/api/redact', {
@@ -357,30 +657,38 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
+
+        if (!res.ok) {
+          throw new Error(`API returned HTTP ${res.status}`);
+        }
+
         const data = await res.json();
-        lastPipelineResponse = data;
+        lastVisualResponse = data;
 
-        // Update Left Pane
-        const tp = data.text_pipeline;
-        const vaultKeys = Object.keys(tp.token_vault || {});
-        document.getElementById('vault-count-badge').textContent = `${vaultKeys.length} PII token(s)`;
-        document.getElementById('quarantined-text-view').textContent = tp.quarantined_text || '(Empty)';
-        document.getElementById('rendered-sanitized-view').innerHTML = formatSanitizedBadges(tp.sanitized_text);
-
-        document.getElementById('statutory-counts').innerHTML = `
-          <span class="rounded-[4px] bg-blue-50 border border-blue-200 px-1.5 py-0.5 text-blue-800">PII: ${tp.counts.pii_masked}</span>
-          <span class="rounded-[4px] bg-amber-50 border border-amber-200 px-1.5 py-0.5 text-amber-800">Claims: ${tp.counts.claims_neutralized}</span>
-          <span class="rounded-[4px] bg-red-50 border border-red-200 px-1.5 py-0.5 text-red-800">Profanity: ${tp.counts.profanity_redacted}</span>
-        `;
-
-        document.getElementById('pipeline-latency-label').textContent = `${data.total_pipeline_ms} ms`;
-
-        // Update Right Pane
-        updateVisualInspector();
-      } finally {
         if (runLiveVlm) {
-          runBtn.textContent = 'Run Live Pipeline';
-          runBtn.disabled = false;
+          // Switch to bounding boxes view so user immediately sees detection results
+          setVisualMode('boxes');
+        } else {
+          updateVisualInspector();
+        }
+
+        const vp = data.visual_pipeline;
+        updateVisualCounts(vp.status || 'CLEAN', vp.boxes_applied || 0);
+
+        badge.className = 'rounded-[4px] bg-emerald-50 border border-emerald-200 px-2.5 py-1 space-mono text-[11px] text-emerald-800 font-medium';
+        badge.textContent = isCustomMedia
+          ? `Custom Processed (${Math.round(data.visual_pipeline.latency_ms)} ms)`
+          : `Processed (${Math.round(data.visual_pipeline.latency_ms)} ms)`;
+      } catch (err) {
+        console.error('Visual pipeline error:', err);
+        badge.className = 'rounded-[4px] bg-red-50 border border-red-200 px-2.5 py-1 space-mono text-[11px] text-red-800 font-medium';
+        badge.textContent = 'Error during VLM processing';
+        updateVisualCounts('ERROR', 0);
+      } finally {
+        overlay.classList.add('hidden');
+        if (runLiveVlm) {
+          btn.textContent = 'Run Live VLM Pass 1+2';
+          btn.disabled = false;
         }
       }
     }
@@ -402,15 +710,27 @@
         }
       });
 
-      if (!lastPipelineResponse) return;
-      const vp = lastPipelineResponse.visual_pipeline;
       const imgEl = document.getElementById('inspector-image');
       const bannerEl = document.getElementById('visual-diagnostic-banner');
 
-      const fname = activeAsset ? activeAsset.filename : 'custom_upload.webp';
-      document.getElementById('active-asset-title').textContent =
-        customImageBase64 ? 'Custom Uploaded Evidence' : `Asset: ${fname} (${activeAsset ? activeAsset.category : ''})`;
+      if (!lastVisualResponse) {
+        if (customImageBase64) {
+          imgEl.src = customImageBase64;
+        }
+        if (visualMode === 'raw') {
+          bannerEl.innerHTML = `<strong class="text-[#1A1C1E]">[1. Input]</strong> Custom evidence image uploaded. Click <strong class="text-[#B8422E]">"Run Live VLM Pass 1+2"</strong> to detect sensitive PII bounding boxes.`;
+        } else if (visualMode === 'boxes') {
+          bannerEl.innerHTML = `<strong class="text-[#B8422E]">[2. Bounding Boxes]</strong> Bounding boxes pending. Click <strong class="text-[#B8422E]">"Run Live VLM Pass 1+2"</strong> to run dual-pass detection.`;
+        } else {
+          bannerEl.innerHTML = `<strong class="text-emerald-800">[3. Redacted]</strong> Redaction pending. Click <strong class="text-[#B8422E]">"Run Live VLM Pass 1+2"</strong> to generate solid-black pixel masks.`;
+        }
+        document.getElementById('bbox-overlay-svg').innerHTML = '';
+        updateVisualCounts(isCustomMedia ? 'PENDING' : 'CLEAN', 0);
+        return;
+      }
 
+      const vp = lastVisualResponse.visual_pipeline;
+      const fname = activeAsset ? activeAsset.filename : 'custom_upload.webp';
       if (customImageBase64) {
         imgEl.src = (visualMode === 'gt' && vp.redacted_data_url) ? vp.redacted_data_url : customImageBase64;
       } else if (visualMode === 'gt') {
@@ -420,34 +740,29 @@
       }
 
       if (visualMode === 'raw') {
-        bannerEl.innerHTML = `<strong class="text-[#1A1C1E]">[1. Input]</strong> Original evidence layout with synthetic mock PII overlay preserving visual context with zero real citizen exposure.`;
+        bannerEl.innerHTML = isCustomMedia
+          ? `<strong class="text-[#1A1C1E]">[1. Input]</strong> Original uploaded custom evidence image.`
+          : `<strong class="text-[#1A1C1E]">[1. Input]</strong> Original evidence layout with synthetic mock PII overlay preserving visual context with zero real citizen exposure.`;
       } else if (visualMode === 'boxes') {
         bannerEl.innerHTML = `<strong class="text-[#B8422E]">[2. Bounding Boxes]</strong> Dual-Pass Gemini VLM emits normalized coordinates (${vp.boxes_applied} box(es)) with strict negative invariant preservation.`;
       } else {
         bannerEl.innerHTML = `<strong class="text-emerald-800">[3. Redacted]</strong> Irreversible <code class="font-mono text-[#1A1C1E]">(0, 0, 0)</code> solid-black pixel masks burned by deterministic Pillow engine.`;
       }
 
-      document.getElementById('meta-status').textContent = (vp.status || 'clean').toUpperCase();
-      document.getElementById('meta-boxes').textContent = `${vp.boxes_applied || 0} box(es)`;
-      document.getElementById('meta-latency').textContent = `${Math.round(vp.latency_ms || 0)} ms (${vp.mode === 'live_gemini_vlm' ? 'Live API' : 'Cached'})`;
-      const invs = (activeAsset && activeAsset.negative_invariants && activeAsset.negative_invariants.length > 0)
-        ? activeAsset.negative_invariants.join(', ')
-        : 'Dispute evidence legible';
-      document.getElementById('meta-invariants').textContent = invs;
-
+      updateVisualCounts(vp.status || 'CLEAN', vp.boxes_applied || 0);
       renderBoundingBoxes();
     }
 
     function renderBoundingBoxes() {
       const svg = document.getElementById('bbox-overlay-svg');
       svg.innerHTML = '';
-      if (!lastPipelineResponse) return;
+      if (!lastVisualResponse) return;
 
       svg.setAttribute('viewBox', '0 0 1000 1000');
       svg.setAttribute('preserveAspectRatio', 'none');
 
       if (visualMode === 'boxes') {
-        const vp = lastPipelineResponse.visual_pipeline;
+        const vp = lastVisualResponse.visual_pipeline;
         const boxes = [...(vp.pass1_boxes || []), ...(vp.pass2_leak_boxes || [])];
         boxes.forEach((b) => {
           const [ymin, xmin, ymax, xmax] = b.box_2d;
@@ -462,17 +777,6 @@
           svg.appendChild(rect);
         });
       }
-    }
-
-    function handleCustomImageUpload(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(evt) {
-        customImageBase64 = evt.target.result;
-        executePipeline(true);
-      };
-      reader.readAsDataURL(file);
     }
 
     window.addEventListener('DOMContentLoaded', initApp);

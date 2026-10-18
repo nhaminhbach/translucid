@@ -26,7 +26,7 @@ def get_genai_client(api_key: str | None = None) -> genai.Client:
     """
     use_vertex = os.environ.get("GOOGLE_GENAI_USE_VERTEXAI", "").lower() in ("1", "true", "yes")
     project = os.environ.get("GOOGLE_CLOUD_PROJECT") or os.environ.get("GCP_PROJECT_ID")
-    location = os.environ.get("GOOGLE_CLOUD_LOCATION", "asia-southeast1")
+    location = os.environ.get("GOOGLE_CLOUD_LOCATION", "global")
     resolved_key = api_key or os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
 
     if use_vertex and project and not resolved_key:
@@ -48,33 +48,42 @@ def call_gemini_with_retry(
 ) -> Any:
     """
     Executes a Gemini content generation call with exponential backoff retry
-    to gracefully handle HTTP 429 (RESOURCE_EXHAUSTED) on high-throughput runs.
+    to gracefully handle HTTP 429 (RESOURCE_EXHAUSTED) on high-throughput runs,
+    with automatic fallback if a regional publisher model is unavailable.
     """
     delay = initial_delay
     last_err: Exception | None = None
+    candidate_models = [model]
+    for alt in ("gemini-2.5-flash", "gemini-2.0-flash"):
+        if alt not in candidate_models:
+            candidate_models.append(alt)
 
-    for attempt in range(max_retries + 1):
-        try:
-            return client.models.generate_content(
-                model=model,
-                contents=contents,
-                config=config
-            )
-        except ClientError as e:
-            last_err = e
-            if ("429" in str(e) or "RESOURCE_EXHAUSTED" in str(e)) and attempt < max_retries:
-                print(f"  [Visual Redactor Rate-Limit] 429 detected. Backing off for {delay:.1f}s (attempt {attempt + 1}/{max_retries})...")
-                time.sleep(delay)
-                delay *= 2.0
-                continue
-            raise
-        except Exception as e:
-            last_err = e
-            if attempt < max_retries:
-                time.sleep(delay)
-                delay *= 1.5
-                continue
-            raise
+    for m in candidate_models:
+        for attempt in range(max_retries + 1):
+            try:
+                return client.models.generate_content(
+                    model=m,
+                    contents=contents,
+                    config=config
+                )
+            except ClientError as e:
+                last_err = e
+                if "404" in str(e) or "NOT_FOUND" in str(e):
+                    # Regional model not found, try next candidate model
+                    break
+                if ("429" in str(e) or "RESOURCE_EXHAUSTED" in str(e)) and attempt < max_retries:
+                    print(f"  [Visual Redactor Rate-Limit] 429 detected. Backing off for {delay:.1f}s (attempt {attempt + 1}/{max_retries})...")
+                    time.sleep(delay)
+                    delay *= 2.0
+                    continue
+                raise
+            except Exception as e:
+                last_err = e
+                if attempt < max_retries:
+                    time.sleep(delay)
+                    delay *= 1.5
+                    continue
+                raise
 
     if last_err:
         raise last_err
