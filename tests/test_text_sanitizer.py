@@ -1,13 +1,13 @@
 """
 Unit tests for translucid.text (sanitize.py and diff.py).
-Verifies NFKC normalization, phone PII masking, Penal Code Art 156 -> Civil Code Art 328
-claim neutralization, and unified diff generation.
+Verifies NFKC normalization, Gate 1 token vault, phone PII masking,
+Penal Code Art 156 -> Civil Code Art 328 claim neutralization, and unified diff generation.
 """
 from translucid.text import (
     export_aligned_diff_artifacts,
     generate_unified_diff,
-    normalize_unicode_text,
     sanitize_review_text,
+    tokenize_pii_vault,
 )
 
 
@@ -16,6 +16,17 @@ def test_nfkc_normalization_and_phone_masking():
     sanitized = sanitize_review_text(raw, target_phone="0987654321")
     assert "0987654321" not in sanitized
     assert "098***4321" in sanitized
+
+
+def test_tokenize_pii_vault_quarantine():
+    raw = "Liên hệ chủ trọ 0912345678 hoặc CCCD 001099012345"
+    quarantined, vault = tokenize_pii_vault(raw)
+    assert "0912345678" not in quarantined
+    assert "001099012345" not in quarantined
+    assert "<PII_PHONE_01>" in quarantined
+    assert "<PII_ID_01>" in quarantined
+    assert vault["<PII_PHONE_01>"] == "0912345678"
+    assert vault["<PII_ID_01>"] == "001099012345"
 
 
 def test_criminal_accusation_to_civil_claim_neutralization():

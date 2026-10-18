@@ -1,0 +1,591 @@
+{
+  "dataset_name": "privacy_benchmark_20261015",
+  "version": "1.0.0",
+  "description": "Canonical benchmark suite for Vietnamese rental review privacy redaction under Decree 13/2023/ND-CP.",
+  "total_assets": 27,
+  "created_at": "2026-10-16T11:41:00+07:00",
+  "source_batch": "audit_20261015_pending_reviews",
+  "assets": [
+    {
+      "filename": "34Mx_0.webp",
+      "category": "building_entrance",
+      "expected_status": "redacted",
+      "expected_entities": [
+        "phone_number"
+      ],
+      "negative_invariants": [
+        "building_address_number_and_facade"
+      ],
+      "cached_auto_status": "redacted",
+      "cached_boxes_applied": 1,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 12014.9,
+      "width": 1079,
+      "height": 1549,
+      "cached_boxes": [
+        [
+          449,
+          693,
+          484,
+          769
+        ]
+      ]
+    },
+    {
+      "filename": "4Z1w_0.webp",
+      "category": "dispute_chat",
+      "expected_status": "redacted",
+      "expected_entities": [
+        "chat_header_name"
+      ],
+      "negative_invariants": [
+        "dispute_dialogue_and_timestamps"
+      ],
+      "cached_auto_status": "redacted",
+      "cached_boxes_applied": 1,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 10557.4,
+      "width": 905,
+      "height": 1920,
+      "cached_boxes": [
+        [
+          589,
+          168,
+          621,
+          483
+        ]
+      ]
+    },
+    {
+      "filename": "5BXW_0.webp",
+      "category": "exterior_facade",
+      "expected_status": "clean",
+      "expected_entities": [],
+      "negative_invariants": [
+        "building_address_number_and_facade"
+      ],
+      "cached_auto_status": "clean",
+      "cached_boxes_applied": 0,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 4199.3,
+      "width": 886,
+      "height": 1920,
+      "cached_boxes": []
+    },
+    {
+      "filename": "5kCV_0.webp",
+      "category": "room_interior",
+      "expected_status": "clean",
+      "expected_entities": [],
+      "negative_invariants": [],
+      "cached_auto_status": "clean",
+      "cached_boxes_applied": 0,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 4252.9,
+      "width": 1920,
+      "height": 1440,
+      "cached_boxes": []
+    },
+    {
+      "filename": "61DU_0.webp",
+      "category": "utility_notebook",
+      "expected_status": "clean",
+      "expected_entities": [],
+      "negative_invariants": [
+        "handwritten_numbers_and_rates"
+      ],
+      "cached_auto_status": "clean",
+      "cached_boxes_applied": 0,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 1967.3,
+      "width": 868,
+      "height": 448,
+      "cached_boxes": []
+    },
+    {
+      "filename": "8bqz_0.webp",
+      "category": "room_defect_drain",
+      "expected_status": "clean",
+      "expected_entities": [],
+      "negative_invariants": [
+        "physical_damage_legibility"
+      ],
+      "cached_auto_status": "clean",
+      "cached_boxes_applied": 0,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 5726.3,
+      "width": 1759,
+      "height": 1376,
+      "cached_boxes": []
+    },
+    {
+      "filename": "Aq15_0.webp",
+      "category": "street_pedestrian",
+      "expected_status": "redacted",
+      "expected_entities": [
+        "civilian_face",
+        "civilian_face"
+      ],
+      "negative_invariants": [],
+      "cached_auto_status": "redacted",
+      "cached_boxes_applied": 2,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 11171.9,
+      "width": 1290,
+      "height": 728,
+      "cached_boxes": [
+        [
+          695,
+          220,
+          942,
+          298
+        ]
+      ]
+    },
+    {
+      "filename": "Aq15_1.webp",
+      "category": "street_dashboard",
+      "expected_status": "clean",
+      "expected_entities": [],
+      "negative_invariants": [],
+      "cached_auto_status": "clean",
+      "cached_boxes_applied": 0,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 1740.4,
+      "width": 886,
+      "height": 1920,
+      "cached_boxes": []
+    },
+    {
+      "filename": "Hv6Z_0.webp",
+      "category": "room_defect_ceiling",
+      "expected_status": "clean",
+      "expected_entities": [],
+      "negative_invariants": [
+        "physical_damage_legibility"
+      ],
+      "cached_auto_status": "clean",
+      "cached_boxes_applied": 0,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 2974.3,
+      "width": 1440,
+      "height": 1920,
+      "cached_boxes": []
+    },
+    {
+      "filename": "IK7D_0.webp",
+      "category": "dispute_chat",
+      "expected_status": "redacted",
+      "expected_entities": [
+        "chat_header_name",
+        "chat_avatar",
+        "chat_header_name",
+        "chat_header_name"
+      ],
+      "negative_invariants": [
+        "dispute_dialogue_and_timestamps"
+      ],
+      "cached_auto_status": "redacted",
+      "cached_boxes_applied": 4,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 11615.6,
+      "width": 870,
+      "height": 1883,
+      "cached_boxes": [
+        [
+          562,
+          15,
+          610,
+          498
+        ],
+        [
+          881,
+          9,
+          904,
+          601
+        ]
+      ]
+    },
+    {
+      "filename": "KfPp_0.webp",
+      "category": "dispute_chat_group",
+      "expected_status": "redacted",
+      "expected_entities": [
+        "chat_header_name",
+        "chat_header_name"
+      ],
+      "negative_invariants": [
+        "dispute_dialogue_and_timestamps"
+      ],
+      "cached_auto_status": "redacted",
+      "cached_boxes_applied": 2,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 11251.2,
+      "width": 887,
+      "height": 1920,
+      "cached_boxes": [
+        [
+          129,
+          156,
+          149,
+          488
+        ],
+        [
+          184,
+          127,
+          210,
+          460
+        ]
+      ]
+    },
+    {
+      "filename": "KfPp_1.webp",
+      "category": "dispute_chat_header",
+      "expected_status": "redacted",
+      "expected_entities": [
+        "chat_header_name"
+      ],
+      "negative_invariants": [
+        "dispute_dialogue_and_timestamps"
+      ],
+      "cached_auto_status": "redacted",
+      "cached_boxes_applied": 1,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 17276.4,
+      "width": 887,
+      "height": 1920,
+      "cached_boxes": [
+        [
+          51,
+          127,
+          98,
+          398
+        ]
+      ]
+    },
+    {
+      "filename": "KfPp_2.webp",
+      "category": "room_defect_with_chat_header",
+      "expected_status": "redacted",
+      "expected_entities": [
+        "chat_header_name"
+      ],
+      "negative_invariants": [
+        "physical_damage_legibility",
+        "dispute_dialogue_and_timestamps"
+      ],
+      "cached_auto_status": "redacted",
+      "cached_boxes_applied": 1,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 16009.1,
+      "width": 887,
+      "height": 1920,
+      "cached_boxes": [
+        [
+          50,
+          126,
+          78,
+          616
+        ]
+      ]
+    },
+    {
+      "filename": "LNzq_0.webp",
+      "category": "utility_tariff_notes",
+      "expected_status": "clean",
+      "expected_entities": [],
+      "negative_invariants": [
+        "handwritten_numbers_and_rates"
+      ],
+      "cached_auto_status": "clean",
+      "cached_boxes_applied": 0,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 2129.7,
+      "width": 592,
+      "height": 1280,
+      "cached_boxes": []
+    },
+    {
+      "filename": "LNzq_1.webp",
+      "category": "utility_deduction_notes",
+      "expected_status": "clean",
+      "expected_entities": [],
+      "negative_invariants": [
+        "handwritten_numbers_and_rates"
+      ],
+      "cached_auto_status": "clean",
+      "cached_boxes_applied": 0,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 3203.0,
+      "width": 592,
+      "height": 611,
+      "cached_boxes": []
+    },
+    {
+      "filename": "NBYm_0.webp",
+      "category": "room_defect_furniture",
+      "expected_status": "clean",
+      "expected_entities": [],
+      "negative_invariants": [
+        "physical_damage_legibility"
+      ],
+      "cached_auto_status": "clean",
+      "cached_boxes_applied": 0,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 4080.8,
+      "width": 1440,
+      "height": 1920,
+      "cached_boxes": []
+    },
+    {
+      "filename": "f2AW_0.webp",
+      "category": "zalo_incoming_call",
+      "expected_status": "redacted",
+      "expected_entities": [
+        "chat_avatar",
+        "chat_header_name"
+      ],
+      "negative_invariants": [],
+      "cached_auto_status": "redacted",
+      "cached_boxes_applied": 2,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 10367.6,
+      "width": 884,
+      "height": 1920,
+      "cached_boxes": [
+        [
+          180,
+          292,
+          372,
+          709
+        ],
+        [
+          387,
+          337,
+          416,
+          665
+        ]
+      ]
+    },
+    {
+      "filename": "i9pg_0.webp",
+      "category": "dispute_chat",
+      "expected_status": "redacted",
+      "expected_entities": [
+        "chat_header_name",
+        "chat_avatar"
+      ],
+      "negative_invariants": [
+        "dispute_dialogue_and_timestamps"
+      ],
+      "cached_auto_status": "redacted",
+      "cached_boxes_applied": 2,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 15286.9,
+      "width": 1060,
+      "height": 1916,
+      "cached_boxes": [
+        [
+          40,
+          314,
+          68,
+          493
+        ]
+      ]
+    },
+    {
+      "filename": "ivSs_0.webp",
+      "category": "building_gate_street",
+      "expected_status": "clean",
+      "expected_entities": [],
+      "negative_invariants": [
+        "building_address_number_and_facade"
+      ],
+      "cached_auto_status": "clean",
+      "cached_boxes_applied": 0,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 7230.7,
+      "width": 1440,
+      "height": 1920,
+      "cached_boxes": []
+    },
+    {
+      "filename": "ln7p_0.webp",
+      "category": "room_interior",
+      "expected_status": "clean",
+      "expected_entities": [],
+      "negative_invariants": [],
+      "cached_auto_status": "clean",
+      "cached_boxes_applied": 0,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 5415.0,
+      "width": 1920,
+      "height": 1440,
+      "cached_boxes": []
+    },
+    {
+      "filename": "ln7p_1.webp",
+      "category": "room_interior_appliances",
+      "expected_status": "clean",
+      "expected_entities": [],
+      "negative_invariants": [],
+      "cached_auto_status": "clean",
+      "cached_boxes_applied": 0,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 4293.2,
+      "width": 1920,
+      "height": 1440,
+      "cached_boxes": []
+    },
+    {
+      "filename": "ln7p_2.webp",
+      "category": "dispute_chat",
+      "expected_status": "redacted",
+      "expected_entities": [
+        "chat_header_name",
+        "chat_header_name",
+        "chat_header_name",
+        "chat_avatar"
+      ],
+      "negative_invariants": [
+        "dispute_dialogue_and_timestamps"
+      ],
+      "cached_auto_status": "redacted",
+      "cached_boxes_applied": 4,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 11693.2,
+      "width": 886,
+      "height": 1920,
+      "cached_boxes": [
+        [
+          59,
+          128,
+          111,
+          466
+        ],
+        [
+          578,
+          263,
+          602,
+          472
+        ],
+        [
+          752,
+          0,
+          796,
+          223
+        ]
+      ]
+    },
+    {
+      "filename": "ln7p_3.webp",
+      "category": "dispute_chat_header",
+      "expected_status": "redacted",
+      "expected_entities": [
+        "chat_header_name"
+      ],
+      "negative_invariants": [
+        "dispute_dialogue_and_timestamps"
+      ],
+      "cached_auto_status": "redacted",
+      "cached_boxes_applied": 1,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 12826.3,
+      "width": 886,
+      "height": 1920,
+      "cached_boxes": [
+        [
+          59,
+          128,
+          111,
+          466
+        ]
+      ]
+    },
+    {
+      "filename": "ln7p_4.webp",
+      "category": "dispute_chat_header",
+      "expected_status": "redacted",
+      "expected_entities": [
+        "chat_header_name",
+        "chat_avatar"
+      ],
+      "negative_invariants": [
+        "dispute_dialogue_and_timestamps"
+      ],
+      "cached_auto_status": "redacted",
+      "cached_boxes_applied": 2,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 13052.4,
+      "width": 886,
+      "height": 1920,
+      "cached_boxes": [
+        [
+          59,
+          128,
+          111,
+          466
+        ],
+        [
+          796,
+          0,
+          840,
+          111
+        ]
+      ]
+    },
+    {
+      "filename": "ln7p_5.webp",
+      "category": "room_interior_refrigerator",
+      "expected_status": "clean",
+      "expected_entities": [
+        "civilian_face"
+      ],
+      "negative_invariants": [],
+      "cached_auto_status": "redacted",
+      "cached_boxes_applied": 1,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 18800.0,
+      "width": 1920,
+      "height": 1440,
+      "cached_boxes": [
+        [
+          265,
+          690,
+          385,
+          765
+        ]
+      ]
+    },
+    {
+      "filename": "yMOa_0.webp",
+      "category": "lease_contract_clause",
+      "expected_status": "clean",
+      "expected_entities": [],
+      "negative_invariants": [],
+      "cached_auto_status": "clean",
+      "cached_boxes_applied": 0,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 4665.7,
+      "width": 1920,
+      "height": 332,
+      "cached_boxes": []
+    },
+    {
+      "filename": "yMOa_1.webp",
+      "category": "dispute_chat_dialogue",
+      "expected_status": "clean",
+      "expected_entities": [],
+      "negative_invariants": [
+        "dispute_dialogue_and_timestamps"
+      ],
+      "cached_auto_status": "clean",
+      "cached_boxes_applied": 0,
+      "cached_leak_recovery": false,
+      "cached_latency_ms": 1683.4,
+      "width": 541,
+      "height": 392,
+      "cached_boxes": []
+    }
+  ]
+}

@@ -7,6 +7,7 @@ from .sanitize import (
     normalize_unicode_text,
     sanitize_review_text,
     strip_emojis,
+    tokenize_pii_vault,
 )
 
 __all__ = [
@@ -16,4 +17,5 @@ __all__ = [
     "normalize_unicode_text",
     "sanitize_review_text",
     "strip_emojis",
+    "tokenize_pii_vault",
 ]

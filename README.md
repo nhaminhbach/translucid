@@ -17,8 +17,9 @@ Like frosted glass (*translucid*) or Google Street View blurring applied to civi
 
 ### Production Validation on Customer #1 (`nhaminhbach.com`)
 - **32,600+ weekly active users (WAU)** and **123,655 search queries** protected in production.
-- **936 approved crowdsourced reviews** and **27 canonical visual dispute assets (`privacy_1015`)** benchmarked.
+- **936 approved crowdsourced reviews** across **502 PostGIS buildings** and **27 canonical visual dispute assets (`privacy_1015`)** benchmarked.
 - **96.3% benchmark accuracy** in **3.76 minutes** across 27 real-world dispute assets (~3.83s per clean asset, ~13.22s per redacted asset) — a **4.5x speedup** over manual multi-agent moderation.
+- **Downstream Consumer AI Syndication**: Clean, legally compliant records produced by `Translucid` power `nhaminhbach.com` and are syndicated headlessly via Streamable HTTP JSON-RPC 2.0 (`https://mcp.nhaminhbach.com/mcp`) directly into the **Google Gemini App (`@Nhaminhbach`)**.
 
 ---
 
@@ -32,8 +33,8 @@ Like frosted glass (*translucid*) or Google Street View blurring applied to civi
 
 ### The 3 Core Innovations in Translucid
 - **Additive Residual Detection ($B_{\text{final}} = B_1 \cup \Delta B$)**: Pass 1 (`RedactionPlan`) detects sensitive coordinates `[ymin, xmin, ymax, xmax]` and deterministic Pillow code (`masks.py`) burns irreversible `(0, 0, 0)` solid-black masks with `+5px` safety padding. Pass 2 (`ResidualAudit`) inspects the *already-masked* image strictly for surviving PII leaks ($\Delta B$) and unions coordinates additively.
-- **Untrusted-Worker Sandboxing**: Pre-inference regex/DLP tokenization (`<PII_PHONE_01>`) + strict schema constraints on **Vertex AI Enterprise** (`asia-southeast1`, zero data retention). The model emits only integer coordinates and statutory claim keys (`[[claim:tranh chap tien coc]]`); deterministic Python executes all pixel and string mutations.
-- **Multimodal Cross-Verification & SynthID Provenance**: Verifies that visual proof (receipts, meter readings, room defects) corroborates text claims while screening uploads for **SynthID** watermarks to block AI-generated fake evidence.
+- **Untrusted-Worker Sandboxing & Local Token Vault**: Pre-inference regex tokenization (`tokenize_pii_vault` -> `<PII_PHONE_01>`, `<PII_ID_01>`) + strict schema constraints on **Gemini API / Vertex AI Enterprise** (`asia-southeast1`, zero data retention). The model emits only integer coordinates and statutory claim keys (`[[claim:tranh chap tien coc]]`); deterministic Python executes all pixel and string mutations.
+- **Zero-Leak Synthetic-PII Benchmark Packaging**: In `data/benchmarks/privacy_1015/`, all 27 `ground_truth/` images have real PII irreversibly burned out with `(0, 0, 0)` solid black, while `raw/` test fixtures are synthesized from `ground_truth/` with mock PII overlays so 100% of authentic dispute dialogue and physical defects are preserved with 0% real citizen PII exposure.
 
 ---
 
@@ -41,26 +42,33 @@ Like frosted glass (*translucid*) or Google Street View blurring applied to civi
 
 ```text
 translucid/
+├── app/
+│   ├── main.py                 # FastAPI backend (/api/benchmark, /api/redact, /api/mcp-proxy)
+│   └── static/index.html       # Single-page interactive showcase & live Gemini redaction workbench
 ├── configs/policies/           # Declarative statutory profiles (VN Decree 13/147, SG PDPA/POHA)
 ├── data/benchmarks/            # 27-asset canonical benchmark dataset (privacy_1015)
 ├── translucid/
 │   ├── visual/                 # Dual-pass VLM engine, Pydantic schemas, solid-black Pillow masks
-│   ├── text/                   # NFKC sanitizer, statutory claim mapping, unified Git-diff exporter
+│   ├── text/                   # NFKC sanitizer, token vault, statutory claim mapping, unified diff
 │   └── eval/                   # Offline CI & live Gemini/Vertex AI benchmark runner
-└── tests/                      # Unit & benchmark regression test suite
+├── tests/                      # 28 unit, benchmark regression, and FastAPI integration tests
+└── Dockerfile                  # Scale-to-zero Google Cloud Run container
 ```
 
-## 4. Quickstart
+## 4. Quickstart & Cloud Run Deployment
 
 ```bash
-# Run unit and offline benchmark regression tests
-uv run pytest
+# 1. Run all 28 unit, benchmark, and FastAPI integration tests
+uv run pytest -v
 
-# Run the canonical 27-asset privacy_1015 benchmark (offline verification)
+# 2. Launch the Interactive Showcase & Live Redaction Workbench locally
+uv run uvicorn app.main:app --reload --port 8080
+
+# 3. Run the canonical 27-asset privacy_1015 CLI benchmark
 uv run python -m translucid.eval.benchmark
 
-# Run live evaluation against Gemini / Vertex AI
-GEMINI_API_KEY="your-key" uv run python -m translucid.eval.benchmark --live
+# 4. Deploy to Google Cloud Run (scale-to-zero)
+gcloud run deploy translucid --source . --region asia-southeast1 --allow-unauthenticated --min-instances=0
 ```
 
 ## License

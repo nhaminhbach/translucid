@@ -1,9 +1,8 @@
-#!/usr/bin/env python3
-import re
-import json
-import unicodedata
 import hashlib
-from typing import Dict, Any, List, Optional
+import json
+import re
+import unicodedata
+from typing import Any
 
 # Terminology Purge Mappings (Constitution Alignment)
 BANNED_TERM_MAPPINGS = {
@@ -140,7 +139,7 @@ EXCLUDED_NAME_TOKENS = {
     "bạn", "nó", "chúng", "tụi", "đứa", "đội", "nhóm", "lừa", "đảo", "quỵt"
 }
 
-def redact_personal_names(text: str, names: Optional[List[str]] = None) -> str:
+def redact_personal_names(text: str, names: list[str] | None = None) -> str:
     """Replaces mentions of named landlords/managers with generic functional titles or [[pii:***]]."""
     if not text:
         return ""
@@ -183,10 +182,10 @@ def redact_personal_names(text: str, names: Optional[List[str]] = None) -> str:
 
 def sanitize_review_text(
     content: str,
-    target_phone: Optional[str] = None,
-    personal_names: Optional[List[str]] = None,
-    profane_words: Optional[List[str]] = None,
-    accusation_phrases: Optional[List[str]] = None,
+    target_phone: str | None = None,
+    personal_names: list[str] | None = None,
+    profane_words: list[str] | None = None,
+    accusation_phrases: list[str] | None = None,
 ) -> str:
     """
     Master sanitizer transforming volatile, accusatory social text into neutral, 
@@ -300,9 +299,9 @@ def sanitize_cell_text(text: Any) -> str:
     return re.sub(r'\s+', ' ', t)
 
 def moderate_reviews_with_gemini(
-    items: List[Dict[str, Any]],
+    items: list[dict[str, Any]],
     batch_size: int = 20
-) -> List[Dict[str, Any]]:
+) -> list[dict[str, Any]]:
     """
     Moderates a batch of rental review posts using Gemini (gemini-3.5-flash-lite).
     Extracts structured entities (target_phone, target_brand, landlord_name, personal_names)
@@ -312,7 +311,7 @@ def moderate_reviews_with_gemini(
     import os
     GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
     
-    results: List[Dict[str, Any]] = [{} for _ in range(len(items))]
+    results: list[dict[str, Any]] = [{} for _ in range(len(items))]
     
     if not GEMINI_API_KEY:
         # Fallback to deterministic rule-based sanitization
@@ -340,17 +339,17 @@ def moderate_reviews_with_gemini(
 
         class ReviewModItem(BaseModel):
             index: int
-            target_phone: Optional[str] = Field(None, description="Clean mobile phone digits of landlord/agent/subject, e.g. 0987654321")
-            target_brand: Optional[str] = Field(None, description="Commercial chain/brand if any, e.g. Hoàng Long House")
-            landlord_name: Optional[str] = Field(None, description="Landlord or manager personal name if mentioned")
-            personal_names: List[str] = Field(default_factory=list, description="All individual personal names mentioned in text to redact")
+            target_phone: str | None = Field(None, description="Clean mobile phone digits of landlord/agent/subject, e.g. 0987654321")
+            target_brand: str | None = Field(None, description="Commercial chain/brand if any, e.g. Hoàng Long House")
+            landlord_name: str | None = Field(None, description="Landlord or manager personal name if mentioned")
+            personal_names: list[str] = Field(default_factory=list, description="All individual personal names mentioned in text to redact")
             has_pii: bool = Field(False, description="True if text contains phone numbers, personal names, or private personal data")
             has_profanity: bool = Field(False, description="True if text contains insults, vulgarity, curses")
             has_claim: bool = Field(False, description="True if text alleges civil dispute, deposit withholding, unagreed charges")
             sanitized_content: str = Field(..., description="The review text naturally rewritten with [[pii:...]], [[profanity:...]], and [[claim:...]] shortcodes embedded")
 
         class ReviewModBatch(BaseModel):
-            results: List[ReviewModItem]
+            results: list[ReviewModItem]
 
         client = genai.Client(api_key=GEMINI_API_KEY)
         system_instruction = (
@@ -411,7 +410,7 @@ def moderate_reviews_with_gemini(
                         "has_claim": bool(res.get("has_claim")) or "[[claim:" in final_sanitized,
                         "sanitized_content": final_sanitized,
                     }
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         print(f"[Gemini Moderation Error] {e}. Falling back to rule-based sanitizer.")
         for idx, item in enumerate(items):
             if not results[idx]:
@@ -432,3 +431,39 @@ def moderate_reviews_with_gemini(
 
     return results
 
+
+
+CCCD_REGEX = re.compile(r'\b\d{12}\b')
+
+
+def tokenize_pii_vault(text: str) -> tuple[str, dict[str, str]]:
+    """
+    Gate 1 Deterministic Pre-Inference Token Vault.
+    Normalizes Unicode (NFKC) and replaces raw 10-digit Vietnamese phone numbers
+    and 12-digit citizen IDs (CCCD) with session tokens (<PII_PHONE_01>, <PII_ID_01>)
+    prior to external LLM transit so raw PII never enters cloud model logs.
+    """
+    if not text:
+        return "", {}
+    normalized = normalize_unicode_text(text)
+    vault: dict[str, str] = {}
+    phone_idx = 0
+    id_idx = 0
+
+    def repl_phone(m: re.Match) -> str:
+        nonlocal phone_idx
+        phone_idx += 1
+        token = f"<PII_PHONE_{phone_idx:02d}>"
+        vault[token] = m.group(0)
+        return token
+
+    def repl_id(m: re.Match) -> str:
+        nonlocal id_idx
+        id_idx += 1
+        token = f"<PII_ID_{id_idx:02d}>"
+        vault[token] = m.group(0)
+        return token
+
+    quarantined = PHONE_REGEX.sub(repl_phone, normalized)
+    quarantined = CCCD_REGEX.sub(repl_id, quarantined)
+    return quarantined, vault

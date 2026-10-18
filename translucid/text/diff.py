@@ -5,8 +5,8 @@ between raw whistleblower submissions and statutory-sanitized outputs.
 """
 import csv
 import difflib
+from collections.abc import Sequence
 from pathlib import Path
-from typing import Sequence
 
 
 def generate_unified_diff(

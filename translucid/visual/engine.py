@@ -1,9 +1,10 @@
 """
 Dual-Pass Privacy Redaction Engine.
 Orchestrates high-recall spatial detection and additive residual verification
-using Google GenAI gemini-3.5-flash-lite, with automatic exponential backoff on HTTP 429.
+using Google GenAI (Gemini API or Vertex AI Enterprise), with automatic exponential backoff on HTTP 429.
 """
 import io
+import os
 import time
 import urllib.request
 from pathlib import Path
@@ -16,6 +17,25 @@ from PIL import Image
 
 from .masks import apply_solid_black_masks
 from .schemas import RedactionPlan, ResidualAudit
+
+
+def get_genai_client(api_key: str | None = None) -> genai.Client:
+    """
+    Initializes a Google GenAI client supporting both Vertex AI Enterprise
+    (GOOGLE_GENAI_USE_VERTEXAI=true, zero data retention) and Gemini API keys.
+    """
+    use_vertex = os.environ.get("GOOGLE_GENAI_USE_VERTEXAI", "").lower() in ("1", "true", "yes")
+    project = os.environ.get("GOOGLE_CLOUD_PROJECT") or os.environ.get("GCP_PROJECT_ID")
+    location = os.environ.get("GOOGLE_CLOUD_LOCATION", "asia-southeast1")
+    resolved_key = api_key or os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
+
+    if use_vertex and project and not resolved_key:
+        return genai.Client(vertexai=True, project=project, location=location)
+    if resolved_key:
+        return genai.Client(api_key=resolved_key)
+    if project:
+        return genai.Client(vertexai=True, project=project, location=location)
+    return genai.Client()
 
 
 def call_gemini_with_retry(
@@ -42,7 +62,6 @@ def call_gemini_with_retry(
             )
         except ClientError as e:
             last_err = e
-            # HTTP 429 RESOURCE_EXHAUSTED check
             if ("429" in str(e) or "RESOURCE_EXHAUSTED" in str(e)) and attempt < max_retries:
                 print(f"  [Visual Redactor Rate-Limit] 429 detected. Backing off for {delay:.1f}s (attempt {attempt + 1}/{max_retries})...")
                 time.sleep(delay)
@@ -96,7 +115,8 @@ def process_review_image(
     3. Pass 2: Additive residual leak audit with additive recovery (capped at 1 retry).
     4. WebP encoding (Quality 90, Method 6).
     """
-    effective_client = client or genai.Client()
+    t0 = time.time()
+    effective_client = client or get_genai_client()
     out_p = Path(output_path)
     out_p.parent.mkdir(parents=True, exist_ok=True)
 
@@ -136,6 +156,8 @@ def process_review_image(
     else:
         plan = RedactionPlan.model_validate_json(p1_response.text)
 
+    pass1_boxes = [{"box_2d": list(b.box_2d), "label": b.label} for b in plan.sensitive_boxes]
+
     # Fast Path: Clean defect image with zero sensitive regions
     if plan.is_clean or not plan.sensitive_boxes:
         raw_rgb = working_img.convert("RGB")
@@ -144,6 +166,9 @@ def process_review_image(
             "status": "clean",
             "boxes_applied": 0,
             "had_leak_recovery": False,
+            "pass1_boxes": [],
+            "pass2_leak_boxes": [],
+            "latency_ms": round((time.time() - t0) * 1000, 1),
             "path": str(out_p)
         }
 
@@ -177,11 +202,12 @@ def process_review_image(
     else:
         audit = ResidualAudit.model_validate_json(p2_response.text)
 
+    pass2_leak_boxes = [{"box_2d": list(b.box_2d), "label": b.label} for b in audit.leak_boxes]
+
     # Additive Self-Correction (Max 1 retry)
     if audit.has_leak and audit.leak_boxes:
         for leak in audit.leak_boxes:
             active_boxes.append(leak.box_2d)
-        # Re-mask original image with combined coordinate list
         masked_img = apply_solid_black_masks(working_img, active_boxes, padding=padding + 2)
 
     masked_img.save(out_p, "WEBP", quality=90, method=6)
@@ -190,5 +216,8 @@ def process_review_image(
         "status": "redacted",
         "boxes_applied": len(active_boxes),
         "had_leak_recovery": audit.has_leak,
+        "pass1_boxes": pass1_boxes,
+        "pass2_leak_boxes": pass2_leak_boxes,
+        "latency_ms": round((time.time() - t0) * 1000, 1),
         "path": str(out_p)
     }

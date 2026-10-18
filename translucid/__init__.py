@@ -9,6 +9,7 @@ from translucid.text.sanitize import (
     moderate_reviews_with_gemini,
     normalize_unicode_text,
     sanitize_review_text,
+    tokenize_pii_vault,
 )
 from translucid.visual import (
     BoundingBox,
@@ -17,6 +18,7 @@ from translucid.visual import (
     apply_solid_black_masks,
     call_gemini_with_retry,
     denormalize_box,
+    get_genai_client,
     load_image_from_source,
     process_review_image,
 )
@@ -32,10 +34,12 @@ __all__ = [
     "denormalize_box",
     "export_aligned_diff_artifacts",
     "generate_unified_diff",
+    "get_genai_client",
     "load_image_from_source",
     "moderate_reviews_with_gemini",
     "normalize_unicode_text",
     "process_review_image",
     "run_benchmark",
     "sanitize_review_text",
+    "tokenize_pii_vault",
 ]

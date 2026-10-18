@@ -10,6 +10,5 @@ venv/
 dist/
 build/
 *.egg-info/
-/data/benchmarks/*
-!/data/benchmarks/.gitkeep
+/data/benchmarks/privacy_1015/eval_output/
 .DS_Store

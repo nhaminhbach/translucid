@@ -1,10 +1,11 @@
 """
-Agentic Grounded Privacy & Compliance Pipeline sub-package.
-Provides high-recall spatial visual privacy redaction, deterministic solid black masking,
-additive residual leak recovery, and canonical evaluation benchmarking.
+Visual Privacy Redaction Sub-Package.
+Provides Dual-Pass Gemini VLM spatial detection, coordinate denormalization,
+and deterministic Pillow solid-black masking.
 """
 from .engine import (
     call_gemini_with_retry,
+    get_genai_client,
     load_image_from_source,
     process_review_image,
 )
@@ -18,6 +19,7 @@ __all__ = [
     "apply_solid_black_masks",
     "call_gemini_with_retry",
     "denormalize_box",
+    "get_genai_client",
     "load_image_from_source",
     "process_review_image",
 ]
