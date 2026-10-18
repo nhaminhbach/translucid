@@ -373,16 +373,26 @@ def moderate_reviews_with_gemini(
                 raw_txt = it.get("content") or ""
                 batch_payload.append({"index": start_idx + i, "text": raw_txt})
 
-            response = client.models.generate_content(
-                model="gemini-3.5-flash-lite",
-                contents=json.dumps(batch_payload, ensure_ascii=False),
-                config=types.GenerateContentConfig(
-                    system_instruction=system_instruction,
-                    response_mime_type="application/json",
-                    response_schema=ReviewModBatch,
-                    temperature=0.0
-                )
-            )
+            response = None
+            last_err = None
+            for model_name in ("gemini-3.5-flash-lite", "gemini-3.8-flash"):
+                try:
+                    response = client.models.generate_content(
+                        model=model_name,
+                        contents=json.dumps(batch_payload, ensure_ascii=False),
+                        config=types.GenerateContentConfig(
+                            system_instruction=system_instruction,
+                            response_mime_type="application/json",
+                            response_schema=ReviewModBatch,
+                            temperature=0.0
+                        )
+                    )
+                    break
+                except Exception as ex:  # noqa: BLE001
+                    last_err = ex
+                    continue
+            if response is None:
+                raise last_err or RuntimeError("No model succeeded")
             parsed = json.loads(response.text)
             batch_results = parsed.get("results", []) if isinstance(parsed, dict) else parsed
             for res in batch_results:

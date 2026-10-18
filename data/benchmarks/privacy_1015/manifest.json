@@ -124,21 +124,27 @@
       "expected_status": "redacted",
       "expected_entities": [
         "civilian_face",
-        "civilian_face"
+        "vehicle_license_plate"
       ],
       "negative_invariants": [],
       "cached_auto_status": "redacted",
       "cached_boxes_applied": 2,
       "cached_leak_recovery": false,
-      "cached_latency_ms": 11171.9,
-      "width": 1290,
-      "height": 728,
+      "cached_latency_ms": 4896.7,
+      "width": 1200,
+      "height": 896,
       "cached_boxes": [
         [
-          695,
-          220,
-          942,
-          298
+          439,
+          480,
+          520,
+          526
+        ],
+        [
+          648,
+          389,
+          678,
+          418
         ]
       ]
     },

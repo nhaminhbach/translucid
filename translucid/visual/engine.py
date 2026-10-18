@@ -54,7 +54,7 @@ def call_gemini_with_retry(
     delay = initial_delay
     last_err: Exception | None = None
     candidate_models = [model]
-    for alt in ("gemini-2.5-flash", "gemini-2.0-flash"):
+    for alt in ("gemini-3.5-flash-lite", "gemini-3.8-flash"):
         if alt not in candidate_models:
             candidate_models.append(alt)
 
@@ -139,7 +139,7 @@ def process_review_image(
         "1. Chat UI headers (Zalo, Messenger, SMS, Telegram): contact display names, phone numbers, and profile avatars.\n"
         "2. Bank transaction receipts: account numbers and recipient real names.\n"
         "3. Identity documents: citizen ID (CCCD/CMND) numbers, birth dates, home addresses, signatures.\n"
-        "4. Exterior/entrance photos: civilian faces, pedestrian portraits, and vehicle license plates.\n\n"
+        "4. Exterior/entrance photos: civilian faces (mask strictly the head and facial area from hair to chin, do not include torso or body), and vehicle license plates.\n\n"
         "NEGATIVE INVARIANTS (DO NOT MASK):\n"
         "- Dispute chat dialogue messages, timestamps, fee breakdowns, and utility tariffs (e.g. 4k/kWh).\n"
         "- Physical room defects (mold, peeling walls, broken locks, water meters, cracked tiles, clogged drains).\n"

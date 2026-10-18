@@ -245,7 +245,7 @@ def run_redaction_pipeline(req: RedactRequest) -> dict[str, Any]:
         try:
             mod_res = moderate_reviews_with_gemini([{"content": req.text}])
             sanitized_text = mod_res[0].get("sanitized_content") or sanitize_review_text(req.text)
-        except Exception:
+        except Exception:  # noqa: BLE001
             sanitized_text = sanitize_review_text(req.text)
     else:
         sanitized_text = sanitize_review_text(req.text)
@@ -309,7 +309,7 @@ def run_redaction_pipeline(req: RedactRequest) -> dict[str, Any]:
                             "latency_ms": v_res.get("latency_ms", 0.0),
                             "redacted_data_url": f"data:image/webp;base64,{out_b64}",
                         })
-                    except Exception as err:
+                    except Exception as err:  # noqa: BLE001
                         from translucid.visual.masks import apply_solid_black_masks
                         sample_boxes = [[15, 20, 110, 980]]
                         masked_img = apply_solid_black_masks(input_img, sample_boxes, padding=5)
@@ -385,7 +385,7 @@ def run_redaction_pipeline(req: RedactRequest) -> dict[str, Any]:
                         "redacted_url": f"/assets/ground_truth/{fname}",
                         "redacted_data_url": f"data:image/webp;base64,{out_b64}",
                     })
-                except Exception as err:
+                except Exception as err:  # noqa: BLE001
                     cached_boxes = asset_meta.get("cached_boxes", [])
                     visual_result.update({
                         "mode": "cached_fallback",

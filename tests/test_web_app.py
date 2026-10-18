@@ -132,6 +132,7 @@ def test_redact_api_custom_text():
 def test_redact_api_custom_image_upload():
     import base64
     import io
+
     from PIL import Image
 
     # Create dummy 100x100 white image
