@@ -4,6 +4,10 @@
 
 Built for **Google Cloud AI Builder Cup 2026** (Theme 5: Future of Work & Enterprise Productivity).
 
+- **Live Cloud Run Prototype**: [https://translucid-nmbreovs7a-as.a.run.app](https://translucid-nmbreovs7a-as.a.run.app) (`asia-southeast1`)
+- **Production Customer #1 (`nhaminhbach.com`)**: [https://nhaminhbach.com](https://nhaminhbach.com)
+- **Downstream Google Gemini App MCP Server**: `https://mcp.nhaminhbach.com/mcp`
+
 ---
 
 ## 1. The Whistleblower Catch-22 (Problem Alignment)
